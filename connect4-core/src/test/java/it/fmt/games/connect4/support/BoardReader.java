@@ -101,7 +101,7 @@ public class BoardReader {
     }
 
     private static Board parseSingleBoard(String content) {
-        if (content.length() != Board.BOARD_SIZE * Board.BOARD_SIZE) {
+        if (content.length() != Board.BOARD_ROWS * Board.BOARD_COLUMNS) {
             throw new RuntimeException("Invalid marker in configuration file");
         }
         Cell[] cells = IntStream.range(0, content.length())

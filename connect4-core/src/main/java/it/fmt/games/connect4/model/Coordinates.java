@@ -15,11 +15,11 @@ public class Coordinates implements Comparable<Coordinates> {
     public Coordinates(String value) {
         value = value.toUpperCase();
         if (isValidString(value)) {
-            row = value.charAt(1) - '0' - 1;
             column = value.charAt(0) - 'A';
+            row = value.charAt(1) - '0' - 1;
         } else {
-            row = -1;
             column = -1;
+            row = -1;
         }
     }
 
@@ -45,7 +45,7 @@ public class Coordinates implements Comparable<Coordinates> {
     }
 
     public boolean isValid() {
-        return (row >= 0 && row < Board.BOARD_SIZE && column >= 0 && column < Board.BOARD_SIZE);
+        return (row >= 0 && row < Board.BOARD_ROWS && column >= 0 && column < Board.BOARD_COLUMNS);
     }
 
     public Coordinates translate(Direction direction) {

@@ -12,7 +12,8 @@ import java.util.stream.Stream;
 import static it.fmt.games.connect4.model.Coordinates.of;
 
 public class Board {
-    public static final int BOARD_SIZE = 8;
+    public static final int BOARD_ROWS = 6;
+    public static final int BOARD_COLUMNS = 7;
     final Cell[] cells;
 
     public Board() {
@@ -38,19 +39,21 @@ public class Board {
     }
 
     private Cell[] init(Function<Coordinates, Cell> filler) {
-        return IntStream.range(0, BOARD_SIZE * BOARD_SIZE).mapToObj(this::asCoords).map(filler).toArray(Cell[]::new);
+        return IntStream.range(0, BOARD_COLUMNS * BOARD_ROWS).mapToObj(this::asCoords).map(filler).toArray(Cell[]::new);
     }
 
     private int flatIndex(Coordinates coordinates) {
-        return coordinates.getRow() * BOARD_SIZE + coordinates.getColumn();
+        return coordinates.getRow() * BOARD_COLUMNS + coordinates.getColumn();
     }
 
     private Coordinates asCoords(int flatIndex) {
-        return of(flatIndex / BOARD_SIZE, flatIndex % BOARD_SIZE);
+        return of(flatIndex / BOARD_ROWS, flatIndex % BOARD_COLUMNS);
     }
 
     public Piece getCellContent(Coordinates coordinates) {
-        if (!coordinates.isValid()) throw new InvalidCoordinatesException();
+        if (!coordinates.isValid()) {
+            throw new InvalidCoordinatesException();
+        }
         return cells[flatIndex(coordinates)].getPiece();
     }
 

@@ -14,7 +14,7 @@ public class BoardTest {
     @Test
     public void boardSize() {
         Board b = new Board();
-        assertThat(b.cells.length, is(Board.BOARD_SIZE * Board.BOARD_SIZE));
+        assertThat(b.cells.length, is(Board.BOARD_COLUMNS * Board.BOARD_ROWS));
     }
 
     @Test
