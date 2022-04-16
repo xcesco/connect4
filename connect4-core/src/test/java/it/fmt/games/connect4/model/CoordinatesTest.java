@@ -9,33 +9,38 @@ import static org.hamcrest.Matchers.is;
 public class CoordinatesTest {
 
     @Test
-    public void checkRow1Col1() {
-        checkCoordinateValidity(-1, -1, false);
+    public void checkCoordinateInvalid() {
+        checkCoordinateValidity(-1, -1, false, "xx");
     }
 
     @Test
     public void checkRow0Col0() {
-        checkCoordinateValidity(0, 0, true);
+        checkCoordinateValidity(0, 0, true, "a1");
     }
 
     @Test
-    public void checkRow4Col10() {
-        checkCoordinateValidity(4, 10, false);
+    public void checkRow5Col6() {
+        checkCoordinateValidity(5, 6, true, "G6");
+    }
+
+    @Test
+    public void checkRow5Col7() {
+        checkCoordinateValidity(5, 7, false, "G6");
     }
 
     @Test
     public void checkRow99Col99() {
-        checkCoordinateValidity(99, 99, false);
+        checkCoordinateValidity(99, 99, false, "G6");
     }
 
     @Test
     public void checkRow3Col3() {
-        checkCoordinateValidity(3, 3, true);
+        checkCoordinateValidity(3, 3, true, "D4");
     }
 
     @Test
-    public void checkRow7Col7() {
-        checkCoordinateValidity(7, 7, true);
+    public void checkRow6Col7() {
+        checkCoordinateValidity(5, 6, true, "G6");
     }
 
     @Test
@@ -69,7 +74,7 @@ public class CoordinatesTest {
 
     @Test
     public void testConversionH8() {
-        checkValidConversion("H8", 7, 7);
+        checkInvalidConversion( "H7");
     }
 
     @Test
@@ -179,9 +184,13 @@ public class CoordinatesTest {
         assertThat(coords1.isValid(), is(false));
     }
 
-    private void checkCoordinateValidity(int row, int col, boolean valid) {
+    private void checkCoordinateValidity(int row, int col, boolean valid, String value) {
         Coordinates coords = Coordinates.of(row, col);
         assertThat(coords.isValid(), is(valid));
+
+        if (coords.isValid()) {
+            assertThat(coords.toString().toUpperCase(), is(value.toUpperCase()));
+        }
     }
 
 }

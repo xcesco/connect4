@@ -107,12 +107,15 @@ public class BoardReader {
         Cell[] cells = IntStream.range(0, content.length())
                 .mapToObj(index -> convertSingleCharToCell(content, index))
                 .toArray(Cell[]::new);
+        if (cells.length != Board.BOARD_ROWS * Board.BOARD_COLUMNS) {
+            throw new RuntimeException("Invalid marker in configuration file");
+        }
         return new Board(cells);
     }
 
     private static Cell convertSingleCharToCell(String fileContent, int index) {
         char c = fileContent.charAt(index);
-        Coordinates coordinates = Coordinates.of(index / 8, index % 8);
+        Coordinates coordinates = Coordinates.of(index / Board.BOARD_COLUMNS, index % Board.BOARD_COLUMNS);
         Piece piece;
         switch (c) {
             case 'o':
