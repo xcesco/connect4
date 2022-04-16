@@ -32,9 +32,8 @@ public abstract class AbstractBoardOperator {
         return builder.build();
     }
 
-    protected boolean isAnyPieceToInvert(Coordinates initialCoordinates, Direction direction) {
-        int piecesToInvert = (int) findEnemyPiecesAlongDirection(initialCoordinates, direction).count();
-        return piecesToInvert > 0 &&
-                board.isCellContentEqualsTo(initialCoordinates.translate(direction, piecesToInvert + 1), piece);
+
+    protected boolean isLowerCellFilled(Coordinates initialCoordinates) {
+        return !initialCoordinates.translate(Direction.DOWN).isValid() || !board.getCellContent(initialCoordinates.translate(Direction.DOWN)).equals(Piece.EMPTY);
     }
 }

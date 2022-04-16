@@ -18,6 +18,16 @@ public class BoardTest {
     }
 
     @Test
+    public void boardElements() {
+        Board b = new Board();
+
+        String result = "A1B1C1D1E1F1G2A2B2C2D2E2F3G3A3B3C3D3E4F4G4A4B4C4D5E5F5G5A5B5C6D6E6F6G6A6B7C7D7E7F7G7";
+
+        String sum = b.getCellStream().map(item -> item.getCoordinates().toString()).reduce("", (partial, coords) -> partial + coords);
+        assertThat(result, is(sum));
+    }
+
+    @Test
     public void setCell() {
         Board b = new Board();
         cellCheck(b, "a1", Piece.PLAYER_1);

@@ -3,8 +3,8 @@ package it.fmt.games.connect4.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class Coordinates implements Comparable<Coordinates> {
-    private int row;
-    private int column;
+    private final int row;
+    private final int column;
 
     public Coordinates(int row, int column) {
         this.row = row;
@@ -24,8 +24,8 @@ public class Coordinates implements Comparable<Coordinates> {
     }
 
     private boolean isValidString(String value) {
-        return (value.length() == 2) && charInRange(value.charAt(0), 'A', 'H')
-                && charInRange(value.charAt(1), '1', '8');
+        return (value.length() == 2) && charInRange(value.charAt(0), 'A', 'G')
+                && charInRange(value.charAt(1), '1', '6');
     }
 
     public static Coordinates of(int row, int column) {

@@ -29,7 +29,8 @@ public class EnemyPiecesHunter extends AbstractBoardOperator {
     }
 
     private boolean isAnyPieceToInvertAlongDirection(Direction direction) {
-        return isAnyPieceToInvert(searchOrigin, direction);
+        return false;
+        //return isLowerCellFilled(searchOrigin, direction);
     }
 
     private Stream<Coordinates> findEnemyPiecesAlongDirection(Direction direction) {

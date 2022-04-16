@@ -14,8 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AvailableMovesTest {
 
     @Test
-    public void noMovesForAllPlayers() throws Exception {
-        AvailableMoves availableMoves = readAndCheck("available_moves00", false, false);
+    public void allPlayersCanMove() throws Exception {
+        AvailableMoves availableMoves = readAndCheck("available_moves00", true, true);
+        assertEquals(7, availableMoves.getMovesActivePlayer().size());
+        assertEquals(7, availableMoves.getMovesActivePlayer().size(), availableMoves.getMovesOtherPlayer().size());
         assertEquals(availableMoves.getMovesActivePlayer().size(), availableMoves.getMovesOtherPlayer().size());
     }
 

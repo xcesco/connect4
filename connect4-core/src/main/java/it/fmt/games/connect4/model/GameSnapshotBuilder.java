@@ -3,7 +3,6 @@ package it.fmt.games.connect4.model;
 import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
 
 public class GameSnapshotBuilder {
-
     private Piece activePiece;
     private AvailableMoves availableMoves;
     private Score score;

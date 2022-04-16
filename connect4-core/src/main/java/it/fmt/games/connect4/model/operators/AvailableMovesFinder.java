@@ -4,7 +4,6 @@ import it.fmt.games.connect4.model.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AvailableMovesFinder extends AbstractBoardOperator {
 
@@ -27,7 +26,7 @@ public class AvailableMovesFinder extends AbstractBoardOperator {
 
     private boolean isValidCellForInsert(Cell cell) {
         return board.isCellContentEqualsTo(cell.getCoordinates(), Piece.EMPTY) &&
-                Stream.of(Direction.values()).anyMatch(direction -> isAnyPieceToInvert(cell.getCoordinates(), direction));
+                isLowerCellFilled(cell.getCoordinates());
     }
 
 

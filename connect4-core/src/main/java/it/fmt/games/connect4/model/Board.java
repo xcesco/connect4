@@ -34,7 +34,7 @@ public class Board {
     }
 
     public void setCell(Coordinates coordinates, Piece content) {
-        if (!coordinates.isValid()) throw new InvalidCoordinatesException();
+        if (!coordinates.isValid()) throw new InvalidCoordinatesException(coordinates);
         cells[flatIndex(coordinates)] = new Cell(coordinates, content);
     }
 
@@ -47,12 +47,12 @@ public class Board {
     }
 
     private Coordinates asCoords(int flatIndex) {
-        return of(flatIndex / BOARD_ROWS, flatIndex % BOARD_COLUMNS);
+        return of(flatIndex / BOARD_COLUMNS, flatIndex % BOARD_COLUMNS);
     }
 
     public Piece getCellContent(Coordinates coordinates) {
         if (!coordinates.isValid()) {
-            throw new InvalidCoordinatesException();
+            throw new InvalidCoordinatesException(coordinates);
         }
         return cells[flatIndex(coordinates)].getPiece();
     }
