@@ -23,7 +23,7 @@ public class AvailableMovesTest {
 
     @Test
     public void noMovesForOtherPlayer() throws Exception {
-        AvailableMoves availableMoves = readAndCheck("available_moves01", true, true);
+        AvailableMoves availableMoves = readAndCheck("available_moves01", false, false);
         assertThat(availableMoves.getMovesOtherPlayer().size(), is(0));
     }
 

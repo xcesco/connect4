@@ -20,7 +20,7 @@
     <modules>
         <module>connect4-parent</module>
         <module>connect4-core</module>
-<!--        <module>connect4-console</module>-->
+        <module>connect4-console</module>
 <!--        <module>connect4-desktop</module>-->
     </modules>
 
