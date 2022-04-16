@@ -1,0 +1,42 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>it.fmt.games.connect4</groupId>
+        <artifactId>connect4-parent</artifactId>
+        <version>1.0.0</version>
+        <relativePath>./connect4-parent/pom.xml</relativePath>
+    </parent>
+
+    <artifactId>connect4-project</artifactId>
+    <version>1.0.0</version>
+
+    <packaging>pom</packaging>
+    <name>connect4-project</name>
+    <description>connect4 - project</description>
+    <url>https://github.com/xcesco/connect4</url>
+
+    <modules>
+        <module>connect4-parent</module>
+        <module>connect4-core</module>
+<!--        <module>connect4-console</module>-->
+<!--        <module>connect4-desktop</module>-->
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>4.3.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
