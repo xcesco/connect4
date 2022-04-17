@@ -20,7 +20,7 @@ public abstract class AbstractBoardOperator {
         this.board = board;
     }
 
-    protected Stream<Coordinates> findEnemyPiecesAlongDirection(Coordinates coordinates, Direction direction) {
+    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction) {
         // done in this way for JDK1.8 compatibility
         Stream.Builder<Coordinates> builder = Stream.builder();
         Coordinates current = coordinates.translate(direction);

@@ -9,16 +9,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class EnemyPiecesHunter extends AbstractBoardOperator {
+public class Connect4Hunter extends AbstractBoardOperator {
     private final Coordinates searchOrigin;
 
-    private EnemyPiecesHunter(Board board, Coordinates coords, Piece piece) {
+    private Connect4Hunter(Board board, Coordinates coords, Piece piece) {
         super(board, piece);
         this.searchOrigin = coords;
     }
 
     public static List<Coordinates> find(Board board, Coordinates newMoveCoords, Piece piece) {
-        EnemyPiecesHunter hunter = new EnemyPiecesHunter(board, newMoveCoords, piece);
+        Connect4Hunter hunter = new Connect4Hunter(board, newMoveCoords, piece);
         return hunter.find();
     }
 
@@ -34,6 +34,6 @@ public class EnemyPiecesHunter extends AbstractBoardOperator {
     }
 
     private Stream<Coordinates> findEnemyPiecesAlongDirection(Direction direction) {
-        return findEnemyPiecesAlongDirection(searchOrigin, direction);
+        return findPiecesAlongDirection(searchOrigin, direction);
     }
 }
