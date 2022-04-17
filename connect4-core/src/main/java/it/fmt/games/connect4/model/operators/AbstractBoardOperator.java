@@ -13,14 +13,14 @@ public abstract class AbstractBoardOperator {
     protected final Piece enemyPiece;
     protected final Board board;
 
-    public AbstractBoardOperator(Board board, Piece piece) {
+    protected AbstractBoardOperator(Board board, Piece piece) {
         if (piece == null || piece == Piece.EMPTY) throw (new InvalidPieceSelectedException());
         this.piece = piece;
         this.enemyPiece = piece == Piece.PLAYER_1 ? Piece.PLAYER_2 : Piece.PLAYER_1;
         this.board = board;
     }
 
-    protected Stream<Coordinates> findEnemyPiecesAlongDirection(Coordinates coordinates, Direction direction) {
+    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction) {
         // done in this way for JDK1.8 compatibility
         Stream.Builder<Coordinates> builder = Stream.builder();
         Coordinates current = coordinates.translate(direction);

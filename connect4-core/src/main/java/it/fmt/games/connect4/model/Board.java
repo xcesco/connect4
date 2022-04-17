@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import it.fmt.games.connect4.exceptions.InvalidCoordinatesException;
 
 import java.util.Arrays;
+import java.util.StringJoiner;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
