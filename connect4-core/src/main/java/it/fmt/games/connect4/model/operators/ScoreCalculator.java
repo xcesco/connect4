@@ -17,8 +17,8 @@ public class ScoreCalculator extends AbstractBoardOperator {
     }
 
     public Score calculateScore() {
-        int score = score();
-        return new Score(this.piece==Piece.PLAYER_1 ? score : 0, this.piece==Piece.PLAYER_2 ? score : 0);
+        int score = score() >= 4 ? 1 : 0;
+        return new Score(this.piece == Piece.PLAYER_1 ? score : 0, this.piece == Piece.PLAYER_2 ? score : 0);
     }
 
     private int score() {
