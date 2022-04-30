@@ -15,7 +15,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PieceFinderTest {
+public class MoveEvaluatorTest {
 
 //    @Test
 //    public void failOnInvalidPiece() {
@@ -37,22 +37,32 @@ public class PieceFinderTest {
 
     @Test
     public void find01() throws Exception {
-        checkPieceFinder(Piece.PLAYER_2, of("d3"), "score_checker01", 0, of("e4"));
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 0, 2);
     }
 
     @Test
     public void find02() throws Exception {
-        checkPieceFinder(Piece.PLAYER_2, of("d3"), "score_checker01", 1, of("e4"), of("f5"));
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 1, 3);
     }
 
     @Test
     public void find03() throws Exception {
-        checkPieceFinder(Piece.PLAYER_2, of("d3"), "score_checker01", 2, of("e4"), of("f5"), of("g6"));
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 2, 4);
     }
 
     @Test
     public void find04() throws Exception {
-        checkPieceFinder(Piece.PLAYER_2, of("d3"), "score_checker01", 3, of("c2") , of("e4"), of("f5"));
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 3, 4);
+    }
+
+    @Test
+    public void find05() throws Exception {
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 4, 1);
+    }
+
+    @Test
+    public void find06() throws Exception {
+        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 5, 4);
     }
 //
 //    @Test
@@ -85,23 +95,29 @@ public class PieceFinderTest {
 //        checkEnemyPieceFinderForPlayer1(of("c4"), "enemy_pieces_to_capture_finder06", of("c2"), of("c3"), of("d3"), of("d4"), of("e2"));
 //    }
 
-    private void checkEnemyPieceFinderForPlayer1(Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
-        checkPieceFinder(Piece.PLAYER_1, newMoveCoordinate, fileName, coordinates);
-    }
+//    private void checkEnemyPieceFinderForPlayer1(Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
+//        checkPieceFinder(Piece.PLAYER_1, newMoveCoordinate, fileName, coordinates);
+//    }
+//
+//    private void checkEnemyPieceFinderForPlayer2(Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
+//        checkPieceFinder(Piece.PLAYER_2, newMoveCoordinate, fileName, coordinates);
+//    }
 
-    private void checkEnemyPieceFinderForPlayer2(Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
-        checkPieceFinder(Piece.PLAYER_2, newMoveCoordinate, fileName, coordinates);
-    }
+//    private void checkPieceFinder(Piece activePiece, Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
+//       checkMoveScore(activePiece, newMoveCoordinate, fileName, 0, coordinates);
+//    }
 
-    private void checkPieceFinder(Piece activePiece, Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
-       checkPieceFinder(activePiece, newMoveCoordinate, fileName, 0, coordinates);
-    }
+//    private void checkMoveScore(Piece activePiece, Coordinates newMoveCoordinate, String fileName, int boardIndex, Coordinates... coordinates) throws Exception {
+//        List<Coordinates> aspectedResult0 = Arrays.asList(coordinates);
+//        Board board = BoardReader.readBoards(fileName)[boardIndex];
+//        List<Coordinates> capturedPiecesCoords = MoveEvaluator.calculateScore(board, newMoveCoordinate, activePiece);
+//        assertThat(capturedPiecesCoords.size(), equalTo(aspectedResult0.size()));
+//        assertEquals(capturedPiecesCoords, aspectedResult0);
+//    }
 
-    private void checkPieceFinder(Piece activePiece, Coordinates newMoveCoordinate, String fileName, int boardIndex, Coordinates... coordinates) throws Exception {
-        List<Coordinates> aspectedResult0 = Arrays.asList(coordinates);
+    private void checkMoveScore(Piece activePiece, Coordinates newMoveCoordinate, String fileName, int boardIndex, int aspectedScore) throws Exception {
         Board board = BoardReader.readBoards(fileName)[boardIndex];
-        List<Coordinates> capturedPiecesCoords = PieceFinder.find(board, newMoveCoordinate, activePiece);
-        assertThat(capturedPiecesCoords.size(), equalTo(aspectedResult0.size()));
-        assertEquals(capturedPiecesCoords, aspectedResult0);
+        int score = MoveEvaluator.calculateScore(board, newMoveCoordinate, activePiece);
+        assertThat(score, equalTo(aspectedScore));
     }
 }

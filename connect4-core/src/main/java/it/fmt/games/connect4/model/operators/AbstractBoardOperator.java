@@ -6,6 +6,7 @@ import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Direction;
 import it.fmt.games.connect4.model.Piece;
 
+import java.util.List;
 import java.util.stream.Stream;
 
 public abstract class AbstractBoardOperator {
@@ -20,15 +21,17 @@ public abstract class AbstractBoardOperator {
         this.board = board;
     }
 
-    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction, final Piece pieceToFind) {
+    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, List<Direction> directions, final Piece pieceToFind) {
         // done in this way for JDK1.8 compatibility
         Stream.Builder<Coordinates> builder = Stream.builder();
-        Coordinates current = coordinates.translate(direction);
+        directions.forEach(direction -> {
+            Coordinates current = coordinates.translate(direction);
+            while (board.isCellContentEqualsTo(current, pieceToFind)) {
+                builder.add(current);
+                current = current.translate(direction);
+            }
+        });
 
-        while (board.isCellContentEqualsTo(current, pieceToFind)) {
-            builder.add(current);
-            current = current.translate(direction);
-        }
         return builder.build();
     }
 

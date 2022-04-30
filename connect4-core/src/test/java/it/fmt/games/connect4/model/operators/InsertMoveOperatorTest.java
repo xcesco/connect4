@@ -58,7 +58,7 @@ public class InsertMoveOperatorTest {
         assertThat(availableMoves.size(), equalTo(1));
         assertEquals(availableMoves, Collections.singletonList(of("e4")));
 
-        List<Coordinates> coords = PieceFinder.find(boards[startIndex], of("e4"), Piece.PLAYER_1);
+        List<Coordinates> coords = MoveEvaluator.findRow(boards[startIndex], of("e4"), Piece.PLAYER_1);
         coords.add(of("e4"));
         Board result = insertMove(boards[startIndex], Piece.PLAYER_1, coords);
         assertEquals(result, boards[finalIndex]);
@@ -66,7 +66,7 @@ public class InsertMoveOperatorTest {
 
     private void checkMove(Board[] snapshots, Piece piece, String coords, int boardIndex) {
         Coordinates move = Coordinates.of(coords);
-        List<Coordinates> positionsToInsert = PieceFinder.find(snapshots[boardIndex - 1], move, piece);
+        List<Coordinates> positionsToInsert = MoveEvaluator.findRow(snapshots[boardIndex - 1], move, piece);
         positionsToInsert.add(move);
 
         Board result = insertMove(snapshots[boardIndex - 1], piece, positionsToInsert);

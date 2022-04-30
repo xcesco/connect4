@@ -1,7 +1,7 @@
 package it.fmt.games.connect4.model;
 
 import it.fmt.games.connect4.UserInputReader;
-import it.fmt.games.connect4.model.operators.PieceFinder;
+import it.fmt.games.connect4.model.operators.MoveEvaluator;
 
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class GameLogicImpl implements GameLogic {
     @Override
     public void insertSelectedMove(Coordinates moveCoords) {
         Piece currentPiece = currentPlayer.getPiece();
-        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords, PieceFinder.find(board, moveCoords, currentPiece));
+        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords, MoveEvaluator.findRow(board, moveCoords, currentPiece));
         insertNewMoveAndCapturedPieces(playerMove);
 
         gameSnapshotBuilder.setLastMove(playerMove).setBoard(board.copy()).setScore(computeScore(board));
