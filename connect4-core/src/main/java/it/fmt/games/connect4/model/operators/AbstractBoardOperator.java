@@ -20,12 +20,12 @@ public abstract class AbstractBoardOperator {
         this.board = board;
     }
 
-    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction) {
+    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction, final Piece pieceToFind) {
         // done in this way for JDK1.8 compatibility
         Stream.Builder<Coordinates> builder = Stream.builder();
         Coordinates current = coordinates.translate(direction);
 
-        while (board.isCellContentEqualsTo(current, this.enemyPiece)) {
+        while (board.isCellContentEqualsTo(current, pieceToFind)) {
             builder.add(current);
             current = current.translate(direction);
         }
