@@ -1,19 +1,32 @@
 package it.fmt.games.connect4.model.operators;
 
 import it.fmt.games.connect4.model.Board;
+import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
 import it.fmt.games.connect4.model.Score;
 
-public abstract class ScoreCalculator {
+public class ScoreCalculator extends AbstractBoardOperator {
 
-    private ScoreCalculator() {
-
+    private ScoreCalculator(Board board, Coordinates coords, Piece piece) {
+        super(board, piece, coords);
     }
 
-    public static Score computeScore(Board board) {
-        int[] score = new int[Piece.values().length];
-        board.getCellStream().forEach(cell -> score[cell.getPiece().ordinal()]++);
-        return new Score(score[Piece.PLAYER_1.ordinal()], score[Piece.PLAYER_2.ordinal()]);
+    public static Score calculateScore(Board board, Coordinates newMoveCoords, Piece piece) {
+        ScoreCalculator calculator = new ScoreCalculator(board, newMoveCoords, piece);
+        return calculator.calculateScore();
+    }
+
+    public Score calculateScore() {
+        int score = score();
+        return new Score(this.piece==Piece.PLAYER_1 ? score : 0, this.piece==Piece.PLAYER_2 ? score : 0);
+    }
+
+    private int score() {
+        return directions.stream()
+                .map(this::findPiecesAlongDirection)
+                .mapToInt(x -> (int) x.count())
+                .max()
+                .orElse(0) + 1;
     }
 
 }

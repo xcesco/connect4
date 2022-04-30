@@ -2,13 +2,12 @@ package it.fmt.games.connect4.model;
 
 import it.fmt.games.connect4.UserInputReader;
 import it.fmt.games.connect4.model.operators.MoveEvaluator;
+import it.fmt.games.connect4.model.operators.ScoreCalculator;
 
 import java.util.List;
 
-import static it.fmt.games.connect4.model.Coordinates.of;
 import static it.fmt.games.connect4.model.operators.AvailableMovesFinder.findMoves;
 import static it.fmt.games.connect4.model.operators.InsertMoveOperator.insertMove;
-import static it.fmt.games.connect4.model.operators.ScoreCalculator.computeScore;
 
 public class GameLogicImpl implements GameLogic {
     protected final GameSnapshotBuilder gameSnapshotBuilder;
@@ -25,11 +24,11 @@ public class GameLogicImpl implements GameLogic {
         this.userInputReader = userInputReader;
     }
 
-    private void insertNewMoveAndCapturedPieces(Piece piece, List<Coordinates> insertedPieceCoords) {
+    private void insertNewMove(Piece piece, List<Coordinates> insertedPieceCoords) {
         board = insertMove(board, piece, insertedPieceCoords);
     }
 
-    private void insertNewMoveAndCapturedPieces(PlayerMove playerMove) {
+    private void insertNewMove(PlayerMove playerMove) {
         board = insertMove(board, playerMove);
     }
 
@@ -38,7 +37,9 @@ public class GameLogicImpl implements GameLogic {
         //insertNewMoveAndCapturedPieces(Piece.PLAYER_1, Arrays.asList(of("e4"), of("d5")));
         //insertNewMoveAndCapturedPieces(Piece.PLAYER_2, Arrays.asList(of("d4"), of("e5")));
 
-        gameSnapshotBuilder.setActivePiece(currentPlayer.getPiece()).setScore(computeScore(board)).setBoard(board.copy());
+        gameSnapshotBuilder.setActivePiece(currentPlayer.getPiece())
+                .setScore(ScoreCalculator.calculateScore(board, Coordinates.of("a1"), Piece.PLAYER_1))
+                .setBoard(board.copy());
         return findMovesForPlayers();
     }
 
@@ -54,9 +55,9 @@ public class GameLogicImpl implements GameLogic {
     public void insertSelectedMove(Coordinates moveCoords) {
         Piece currentPiece = currentPlayer.getPiece();
         PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords, MoveEvaluator.findRow(board, moveCoords, currentPiece));
-        insertNewMoveAndCapturedPieces(playerMove);
+        insertNewMove(playerMove);
 
-        gameSnapshotBuilder.setLastMove(playerMove).setBoard(board.copy()).setScore(computeScore(board));
+        gameSnapshotBuilder.setLastMove(playerMove).setBoard(board.copy()).setScore(ScoreCalculator.calculateScore(board, moveCoords, currentPiece));
     }
 
     @Override

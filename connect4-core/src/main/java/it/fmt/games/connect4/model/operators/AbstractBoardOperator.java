@@ -13,15 +13,24 @@ public abstract class AbstractBoardOperator {
     protected final Piece piece;
     protected final Piece enemyPiece;
     protected final Board board;
+    protected final Coordinates searchOrigin;
 
-    public AbstractBoardOperator(Board board, Piece piece) {
+    protected final static List<List<Direction>> directions = List.of(
+            List.of(Direction.DOWN),
+            List.of(Direction.LEFT, Direction.RIGHT),
+            List.of(Direction.UP_LEFT, Direction.DOWN_RIGHT),
+            List.of(Direction.DOWN_LEFT, Direction.UP_RIGHT)
+    );
+
+    public AbstractBoardOperator(Board board, Piece piece, Coordinates searchOrigin) {
+        this.searchOrigin = searchOrigin;
         if (piece == null || piece == Piece.EMPTY) throw (new InvalidPieceSelectedException());
         this.piece = piece;
         this.enemyPiece = piece == Piece.PLAYER_1 ? Piece.PLAYER_2 : Piece.PLAYER_1;
         this.board = board;
     }
 
-    protected Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, List<Direction> directions, final Piece pieceToFind) {
+    protected Stream<Coordinates> findPiecesAlongDirection(final Coordinates coordinates, List<Direction> directions, final Piece pieceToFind) {
         // done in this way for JDK1.8 compatibility
         Stream.Builder<Coordinates> builder = Stream.builder();
         directions.forEach(direction -> {
@@ -38,5 +47,9 @@ public abstract class AbstractBoardOperator {
 
     protected boolean isLowerCellFilled(Coordinates initialCoordinates) {
         return !initialCoordinates.translate(Direction.DOWN).isValid() || !board.getCellContent(initialCoordinates.translate(Direction.DOWN)).equals(Piece.EMPTY);
+    }
+
+    protected Stream<Coordinates> findPiecesAlongDirection(List<Direction> directions) {
+        return findPiecesAlongDirection(searchOrigin, directions, piece);
     }
 }

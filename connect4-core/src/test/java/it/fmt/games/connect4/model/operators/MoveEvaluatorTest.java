@@ -3,6 +3,7 @@ package it.fmt.games.connect4.model.operators;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
+import it.fmt.games.connect4.model.Score;
 import it.fmt.games.connect4.support.BoardReader;
 import org.junit.jupiter.api.Test;
 
@@ -62,7 +63,12 @@ public class MoveEvaluatorTest {
 
     @Test
     public void find06() throws Exception {
-        checkMoveScore(Piece.PLAYER_2, of("d3"), "score_checker01", 5, 4);
+        checkMoveScore(Piece.PLAYER_2, of("d4"), "score_checker01", 5, 4);
+    }
+
+    @Test
+    public void find07() throws Exception {
+        checkMoveScore(Piece.PLAYER_2, of("d4"), "score_checker01", 6, 5);
     }
 //
 //    @Test
@@ -117,7 +123,7 @@ public class MoveEvaluatorTest {
 
     private void checkMoveScore(Piece activePiece, Coordinates newMoveCoordinate, String fileName, int boardIndex, int aspectedScore) throws Exception {
         Board board = BoardReader.readBoards(fileName)[boardIndex];
-        int score = MoveEvaluator.calculateScore(board, newMoveCoordinate, activePiece);
+        Score score = ScoreCalculator.calculateScore(board, newMoveCoordinate, activePiece);
         assertThat(score, equalTo(aspectedScore));
     }
 }
