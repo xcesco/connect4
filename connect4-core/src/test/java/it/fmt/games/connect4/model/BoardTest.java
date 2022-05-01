@@ -21,8 +21,12 @@ public class BoardTest {
     public void boardElements() {
         Board b = new Board();
 
-        String result = "A1B1C1D1E1F1G2A2B2C2D2E2F3G3A3B3C3D3E4F4G4A4B4C4D5E5F5G5A5B5C6D6E6F6G6A6B7C7D7E7F7G7";
-
+        String result = "A1B1C1D1E1F1G1"+
+                "A2B2C2D2E2F2G2"+
+                "A3B3C3D3E3F3G3"+
+                "A4B4C4D4E4F4G4"+
+                "A5B5C5D5E5F5G5"+
+                "A6B6C6D6E6F6G6";
         String sum = b.getCellStream().map(item -> item.getCoordinates().toString()).reduce("", (partial, coords) -> partial + coords);
         assertThat(result, is(sum));
     }

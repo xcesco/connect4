@@ -1,5 +1,6 @@
 package it.fmt.games.connect4.model.operators;
 
+import it.fmt.games.connect4.Pair;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
@@ -22,8 +23,9 @@ public class MoveEvaluator extends AbstractBoardOperator {
     private List<Coordinates> findRow() {
         return directions.stream()
                 .map(this::findPiecesAlongDirection)
-                .filter(row -> row.count() >= 4)
-                .flatMap(Function.identity())
+                .peek(r -> System.out.println(r.getValue2()))
+                .filter(row -> row.getValue2() >= 4)
+                .flatMap(Pair::getValue1)
                 .collect(Collectors.toList());
     }
 }

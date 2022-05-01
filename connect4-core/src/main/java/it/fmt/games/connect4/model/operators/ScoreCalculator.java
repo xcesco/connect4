@@ -1,5 +1,6 @@
 package it.fmt.games.connect4.model.operators;
 
+import it.fmt.games.connect4.Pair;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
@@ -17,16 +18,19 @@ public class ScoreCalculator extends AbstractBoardOperator {
     }
 
     public Score calculateScore() {
-        int score = score() >= 4 ? 1 : 0;
-        return new Score(this.piece == Piece.PLAYER_1 ? score : 0, this.piece == Piece.PLAYER_2 ? score : 0);
+        if (this.searchOrigin == null) {
+            return new Score(0, 0);
+        } else {
+            int score = score() >= 4 ? 1 : 0;
+            return new Score(this.piece == Piece.PLAYER_1 ? score : 0, this.piece == Piece.PLAYER_2 ? score : 0);
+        }
     }
 
     private int score() {
         return directions.stream()
                 .map(this::findPiecesAlongDirection)
-                .mapToInt(x -> (int) x.count())
-                .max()
-                .orElse(0) + 1;
+                .mapToInt(Pair::getValue2)
+                .max().orElse(0) + 1;
     }
 
 }

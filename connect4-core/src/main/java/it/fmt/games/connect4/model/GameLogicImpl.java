@@ -24,8 +24,8 @@ public class GameLogicImpl implements GameLogic {
         this.userInputReader = userInputReader;
     }
 
-    private void insertNewMove(Piece piece, List<Coordinates> insertedPieceCoords) {
-        board = insertMove(board, piece, insertedPieceCoords);
+    private void insertNewMove(Piece piece, Coordinates coordinates) {
+        board = insertMove(board, piece, coordinates);
     }
 
     private void insertNewMove(PlayerMove playerMove) {
@@ -54,7 +54,7 @@ public class GameLogicImpl implements GameLogic {
     @Override
     public void insertSelectedMove(Coordinates moveCoords) {
         Piece currentPiece = currentPlayer.getPiece();
-        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords, MoveEvaluator.findRow(board, moveCoords, currentPiece));
+        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords);
         insertNewMove(playerMove);
 
         gameSnapshotBuilder.setLastMove(playerMove).setBoard(board.copy()).setScore(ScoreCalculator.calculateScore(board, moveCoords, currentPiece));

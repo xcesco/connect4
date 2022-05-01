@@ -47,7 +47,7 @@ public class AvailableMovesTest {
         AvailableMoves availableMoves3 = readAvailableMoves("available_moves02");
 
         assertThat(availableMoves1.equals(availableMoves1), is(true));
-        assertThat(availableMoves1.equals(null), is(false));
+        assertThat(availableMoves1 == null, is(false));
         assertThat(availableMoves1.equals("dummy"), is(false));
         assertThat(availableMoves1.equals(availableMoves2), is(true));
         assertThat(availableMoves1.equals(availableMoves3), is(false));

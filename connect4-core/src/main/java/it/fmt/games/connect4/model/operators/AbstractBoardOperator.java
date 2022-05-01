@@ -1,5 +1,6 @@
 package it.fmt.games.connect4.model.operators;
 
+import it.fmt.games.connect4.Pair;
 import it.fmt.games.connect4.exceptions.InvalidPieceSelectedException;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
@@ -7,6 +8,7 @@ import it.fmt.games.connect4.model.Direction;
 import it.fmt.games.connect4.model.Piece;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public abstract class AbstractBoardOperator {
@@ -30,26 +32,29 @@ public abstract class AbstractBoardOperator {
         this.board = board;
     }
 
-    protected Stream<Coordinates> findPiecesAlongDirection(final Coordinates coordinates, List<Direction> directions, final Piece pieceToFind) {
+    protected Pair<Stream<Coordinates>, Integer> findPiecesAlongDirection(final List<Direction> directions) {
+        final AtomicInteger counter= new AtomicInteger(0);
         // done in this way for JDK1.8 compatibility
-        Stream.Builder<Coordinates> builder = Stream.builder();
+        final Stream.Builder<Coordinates> builder = Stream.builder();
+
+        if (board.isCellContentEqualsTo(searchOrigin, piece)) {
+            counter.getAndIncrement();
+            builder.add(searchOrigin);
+        }
+
         directions.forEach(direction -> {
-            Coordinates current = coordinates.translate(direction);
-            while (board.isCellContentEqualsTo(current, pieceToFind)) {
+            Coordinates current = searchOrigin.translate(direction);
+            while (board.isCellContentEqualsTo(current, piece)) {
+                counter.getAndIncrement();
                 builder.add(current);
                 current = current.translate(direction);
             }
         });
 
-        return builder.build();
+        return Pair.of(builder.build(), counter.intValue());
     }
 
-
-    protected boolean isLowerCellFilled(Coordinates initialCoordinates) {
+    protected boolean isLowerCellFilled(final Coordinates initialCoordinates) {
         return !initialCoordinates.translate(Direction.DOWN).isValid() || !board.getCellContent(initialCoordinates.translate(Direction.DOWN)).equals(Piece.EMPTY);
-    }
-
-    protected Stream<Coordinates> findPiecesAlongDirection(List<Direction> directions) {
-        return findPiecesAlongDirection(searchOrigin, directions, piece);
     }
 }
