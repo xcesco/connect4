@@ -23,3 +23,5 @@
 hs_err_pid*
 /connect4-core/target/
 /.idea/
+/connect4-console/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/connect4-console/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
