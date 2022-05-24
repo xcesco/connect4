@@ -21,8 +21,8 @@ public class Connect4 {
         while (availableMoves.isAnyAvailableMoves()) {
             renderer.render(gameLogic.getGameSnapshot());
 
-            if (availableMoves.isAvailableMovesForActivePlayer()) {
-                Coordinates nextMove = gameLogic.readActivePlayerMove(availableMoves.getMovesActivePlayer());
+            if (availableMoves.isAvailableMoves()) {
+                Coordinates nextMove = gameLogic.readActivePlayerMove(availableMoves.getAvailablePositions());
                 gameLogic.insertSelectedMove(nextMove);
             }
 

@@ -46,7 +46,7 @@ public class AvailableMovesFinderTest {
 
     private void checkAvailableMovesFinder(String fileName, Piece piece, Coordinates... coordinates) throws Exception {
         Board board = BoardReader.read(fileName);
-        List<Coordinates> availableMovesForPlayer = AvailableMovesFinder.findMoves(board, piece);
+        List<Coordinates> availableMovesForPlayer = AvailableMovesFinder.findPositions(board, piece);
         List<Coordinates> aspectedResult = Arrays.asList(coordinates);
         assertThat(availableMovesForPlayer.size(), equalTo(aspectedResult.size()));
         assertEquals(availableMovesForPlayer, aspectedResult);

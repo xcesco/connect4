@@ -1,12 +1,11 @@
 package it.fmt.games.connect4.model;
 
 import it.fmt.games.connect4.UserInputReader;
-import it.fmt.games.connect4.model.operators.MoveEvaluator;
 import it.fmt.games.connect4.model.operators.ScoreCalculator;
 
 import java.util.List;
 
-import static it.fmt.games.connect4.model.operators.AvailableMovesFinder.findMoves;
+import static it.fmt.games.connect4.model.operators.AvailableMovesFinder.findPositions;
 import static it.fmt.games.connect4.model.operators.InsertMoveOperator.insertMove;
 
 public class GameLogicImpl implements GameLogic {
@@ -45,7 +44,7 @@ public class GameLogicImpl implements GameLogic {
 
     @Override
     public AvailableMoves findMovesForPlayers() {
-        AvailableMoves availableMoves = new AvailableMoves(findMoves(board, currentPlayer.getPiece()), findMoves(board, otherPlayer.getPiece()));
+        AvailableMoves availableMoves = new AvailableMoves(currentPlayer.getPiece(), findPositions(board, currentPlayer.getPiece()));
 
         gameSnapshotBuilder.setAvailableMoves(availableMoves);
         return availableMoves;

@@ -32,7 +32,7 @@ public class GameSnapshotTest {
 
         Score aspectedScore = new Score(player1Score, player2Score);
         Player aspectedCurrentPlayer = new Player1();
-        AvailableMoves aspectedMoves = new AvailableMoves(Arrays.asList(of(availMoveP1)), Arrays.asList(of(availMoveP2)));
+        AvailableMoves aspectedMoves = new AvailableMoves(Piece.PLAYER_1, Arrays.asList(of(availMoveP1)));
         Board aspectedBoard = new Board();
         GameStatus aspectedStatus = GameStatus.DRAW;
 
@@ -47,7 +47,7 @@ public class GameSnapshotTest {
     private GameSnapshot createGameSnapshot(int player1Score, int player2Score, String availMoveP1, String availMoveP2) {
         Score score = new Score(player1Score, player2Score);
         Player currentPlayer = new Player1();
-        AvailableMoves moves = new AvailableMoves(Arrays.asList(of(availMoveP1)), Arrays.asList(of(availMoveP2)));
+        AvailableMoves moves = new AvailableMoves(Piece.PLAYER_1, Arrays.asList(of(availMoveP1)));
         Board board = new Board();
         GameStatus status = GameStatus.DRAW;
         return new GameSnapshot(score, null, currentPlayer.getPiece(), moves, board, status);

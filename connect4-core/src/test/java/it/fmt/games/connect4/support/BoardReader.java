@@ -56,7 +56,7 @@ public class BoardReader {
 
     public static final String ONLY_VALID_CHARS_REGEX = "[^\\.ox\\=]";
     public static final String BOARD_SEPARATOR_REGEX = "\\=";
-    public static final String MULITPLE_BOARD_SEPARATOR_REGEX = "\\=+";
+    public static final String MULTIPLE_BOARD_SEPARATOR_REGEX = "\\=+";
 
     /**
      * See javadoc of class {@link BoardReader}
@@ -89,7 +89,7 @@ public class BoardReader {
     public static Board read(String fileName) throws Exception {
         Board[] result = readBoards(fileName);
 
-        if (result == null || result.length != 1) {
+        if (result.length != 1) {
             throw new InvalidBoardReaderException(String.format("File %s does not contains a valid snapshot", fileName));
         }
 
@@ -97,7 +97,7 @@ public class BoardReader {
     }
 
     private static String removeMultipleBoardSeparators(String content) {
-        return content.replaceAll(MULITPLE_BOARD_SEPARATOR_REGEX, BOARD_SEPARATOR_REGEX);
+        return content.replaceAll(MULTIPLE_BOARD_SEPARATOR_REGEX, BOARD_SEPARATOR_REGEX);
     }
 
     private static Board parseSingleBoard(String content) {
@@ -110,7 +110,10 @@ public class BoardReader {
         if (cells.length != Board.BOARD_ROWS * Board.BOARD_COLUMNS) {
             throw new RuntimeException("Invalid marker in configuration file");
         }
-        return new Board(cells);
+
+        Board board=new Board(cells);
+        BoardConsistencyChecker.check(board);
+        return board;
     }
 
     private static Cell convertSingleCharToCell(String fileContent, int index) {

@@ -36,8 +36,7 @@ public class GameLogicTest {
         GameLogicImpl gameLogic = createAndInitializeGameLogic();
 
         AvailableMoves availableMoves = gameLogic.findMovesForPlayers();
-        checkAvailableMovesFinder(availableMoves.getMovesActivePlayer(), aspectedMovesForPlayer1);
-        checkAvailableMovesFinder(availableMoves.getMovesOtherPlayer(), aspectedMovesForPlayer2);
+        checkAvailableMovesFinder(availableMoves.getAvailablePositions(), aspectedMovesForPlayer2);
     }
 
     @Test
@@ -45,7 +44,7 @@ public class GameLogicTest {
         GameLogicImpl gameLogic = createAndInitializeGameLogic();
 
         AvailableMoves availableMoves = gameLogic.findMovesForPlayers();
-        Coordinates player1Move = availableMoves.getMovesActivePlayer().get(0);
+        Coordinates player1Move = availableMoves.getAvailablePositions().get(0);
         gameLogic.insertSelectedMove(player1Move);
 
         Board aspectedBoard = BoardReader.read("gameLogicTest1");

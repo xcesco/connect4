@@ -6,47 +6,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
 public class AvailableMoves {
-    private final List<Coordinates> movesCurrentPlayer;
-    private final List<Coordinates> movesOtherPlayer;
+    private final List<Coordinates> availablePositions;
+
+    private Piece player;
 
     @JsonCreator
-    public AvailableMoves(@JsonProperty("movesCurrentPlayer") List<Coordinates> availableMovesCurrentPlayer,
-                          @JsonProperty("movesOtherPlayer") List<Coordinates> availableMovesOtherPlayer) {
-        this.movesCurrentPlayer = availableMovesCurrentPlayer;
-        this.movesOtherPlayer = availableMovesOtherPlayer;
+    public AvailableMoves(
+            @JsonProperty("player") Piece player,
+            @JsonProperty("movesCurrentPlayer") List<Coordinates> availablePositions) {
+        this.availablePositions = availablePositions;
+        this.player = player;
     }
 
-    public boolean isAnyAvailableMoves() {
-        return isAvailableMovesForActivePlayer() || !(movesOtherPlayer.isEmpty());
+    public List<Coordinates> getAvailablePositions() {
+        return availablePositions;
     }
 
-    public List<Coordinates> getMovesActivePlayer() {
-        return movesCurrentPlayer;
+    public boolean isAvailableMoves() {
+        return !(availablePositions.isEmpty());
     }
 
-    public List<Coordinates> getMovesOtherPlayer() {
-        return movesOtherPlayer;
-    }
-
-    public boolean isAvailableMovesForActivePlayer() {
-        return !(movesCurrentPlayer.isEmpty());
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        AvailableMoves that = (AvailableMoves) o;
-
-        if (!movesCurrentPlayer.equals(that.movesCurrentPlayer)) return false;
-        return movesOtherPlayer.equals(that.movesOtherPlayer);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = movesCurrentPlayer.hashCode();
-        result = 31 * result + movesOtherPlayer.hashCode();
-        return result;
-    }
 }

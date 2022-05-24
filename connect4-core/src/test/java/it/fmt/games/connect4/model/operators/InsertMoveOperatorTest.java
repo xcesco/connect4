@@ -40,7 +40,7 @@ public class InsertMoveOperatorTest {
     public void noAvailableMoves() throws Exception {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[0], Piece.PLAYER_1);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findPositions(boards[0], Piece.PLAYER_1);
         assertThat(availableMoves.size(), equalTo(0));
     }
 
@@ -54,7 +54,7 @@ public class InsertMoveOperatorTest {
 
     private void checkRightInsertion(Board[] boards, int startIndex) {
         int finalIndex = startIndex + 1;
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[startIndex], Piece.PLAYER_1);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findPositions(boards[startIndex], Piece.PLAYER_1);
         assertThat(availableMoves.size(), equalTo(1));
         assertEquals(availableMoves, Collections.singletonList(of("e4")));
 
