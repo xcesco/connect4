@@ -45,8 +45,8 @@ public class AvailableMovesTest {
   @Test
   public void availableMovesForAllPlayers() throws Exception {
     AvailableMoves availableMoves = readAndCheck("available_moves03", true, true);
-    assertThat(availableMoves.getMovesActivePlayer().size(), is(4));
-    assertThat(availableMoves.getMovesOtherPlayer().size(), is(4));
+    assertThat(availableMoves.getMovesActivePlayer().size(), is(7));
+    assertThat(availableMoves.getMovesOtherPlayer().size(), is(7));
   }
 
   @Test

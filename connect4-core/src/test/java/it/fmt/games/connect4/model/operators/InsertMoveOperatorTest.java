@@ -1,20 +1,19 @@
 package it.fmt.games.connect4.model.operators;
 
 import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
-import it.fmt.games.connect4.model.Board;
-import it.fmt.games.connect4.model.Coordinates;
-import it.fmt.games.connect4.model.Piece;
+import it.fmt.games.connect4.model.*;
 import it.fmt.games.connect4.support.BoardReader;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
 import java.util.List;
 
 import static it.fmt.games.connect4.model.Coordinates.of;
 import static it.fmt.games.connect4.model.operators.InsertMoveOperator.*;
 import static it.fmt.games.connect4.support.BoardReader.readBoards;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -24,52 +23,52 @@ public class InsertMoveOperatorTest {
     public void insert() throws Exception {
         Board[] snapshots = readBoards("insert_piece01");
 
-        checkMove(snapshots, Piece.PLAYER_1, "c4", 1);
-        checkMove(snapshots, Piece.PLAYER_2, "c5", 2);
-        checkMove(snapshots, Piece.PLAYER_1, "c6", 3);
+        checkMove(snapshots, Piece.PLAYER_1, "c6", 1);
+        checkMove(snapshots, Piece.PLAYER_2, "d6", 2);
+        checkMove(snapshots, Piece.PLAYER_1, "d5", 3);
     }
 
     @Test
     public void insertEmpty() {
         Board board = new Board();
-        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, null, Collections.emptyList()));
-        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, Piece.EMPTY, Collections.emptyList()));
+        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, null));
+        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, new PlayerMove(Piece.EMPTY, of("a1"))));
     }
 
     @Test
-    public void noAvailableMoves() throws Exception {
+    public void insertAndWin() throws Exception {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
         List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[0], Piece.PLAYER_1);
+        insertMove(boards[0], new PlayerMove(Piece.PLAYER_1, availableMoves.get(0)));
         assertThat(availableMoves.size(), equalTo(0));
     }
 
     @Test
-    public void insertOnlyInOneDirection() throws Exception {
+    public void insertPiecesAndWin() throws Exception {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
-        checkRightInsertion(boards, 1);
-        checkRightInsertion(boards, 3);
+        Board board=insertAndCheckBoardStatus(boards, 0, PlayerMove.create(Piece.PLAYER_2, of("d6")));
+        Score score=ScoreCalculator.computeScore(board);
+
+        assertThat(score.getPlayer2Score(), is(4));
     }
 
-    private void checkRightInsertion(Board[] boards, int startIndex) {
-        int finalIndex=startIndex+1;
+    private Board insertAndCheckBoardStatus(Board[] boards, int startIndex, PlayerMove playerMove) {
+        int finalIndex = startIndex + 1;
         List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[startIndex], Piece.PLAYER_1);
-        assertThat(availableMoves.size(), equalTo(1));
-        assertEquals(availableMoves, Collections.singletonList(of("e4")));
+        assertThat(availableMoves, hasItem(playerMove.getMoveCoords()));
 
-        List<Coordinates> coords = Connect4Hunter.find(boards[startIndex], of("e4"), Piece.PLAYER_1);
-        coords.add(of("e4"));
-        Board result = insertMove(boards[startIndex], Piece.PLAYER_1, coords);
+        Board result = insertMove(boards[startIndex], playerMove.getPiece(), playerMove.getMoveCoords());
         assertEquals(result, boards[finalIndex]);
+
+        return boards[finalIndex];
     }
 
     private void checkMove(Board[] snapshots, Piece piece, String coords, int boardIndex) {
         Coordinates move = Coordinates.of(coords);
-        List<Coordinates> positionsToInsert = Connect4Hunter.find(snapshots[boardIndex - 1], move, piece);
-        positionsToInsert.add(move);
 
-        Board result = insertMove(snapshots[boardIndex - 1], piece, positionsToInsert);
+        Board result = insertMove(snapshots[boardIndex - 1], piece, move);
         assertThat(result, equalTo(snapshots[boardIndex]));
     }
 }

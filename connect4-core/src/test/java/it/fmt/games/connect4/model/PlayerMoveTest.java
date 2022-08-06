@@ -15,17 +15,17 @@ public class PlayerMoveTest {
     @Test
     public void testInvalidCreation() {
         assertThrows(InvalidInsertOperationException.class, () -> {
-            PlayerMove playerMove = new PlayerMove(null, of("a4"), Collections.emptyList());
+            PlayerMove playerMove = new PlayerMove(null, of("a4"));
         });
 
         assertThrows(InvalidInsertOperationException.class, () -> {
-            PlayerMove playerMove = new PlayerMove(Piece.EMPTY , of("a4"), Collections.emptyList());
+            PlayerMove playerMove = new PlayerMove(Piece.EMPTY , of("a4"));
         });
     }
 
     @Test
     public void testCreation() {
-        PlayerMove playerMove = new PlayerMove(Piece.PLAYER_1, of("a4"), Collections.emptyList());
+        PlayerMove playerMove = new PlayerMove(Piece.PLAYER_1, of("a4"));
 
         assertThat(playerMove.getPiece(), is(Piece.PLAYER_1));
         assertThat(playerMove.getMoveCoords(), is(of("a4")));

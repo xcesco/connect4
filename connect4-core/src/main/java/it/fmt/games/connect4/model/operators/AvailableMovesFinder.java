@@ -33,6 +33,4 @@ public class AvailableMovesFinder extends AbstractBoardOperator {
     return board.isCellContentEqualsTo(cell.getCoordinates(), Piece.EMPTY) &&
             isLowerCellFilled(cell.getCoordinates());
   }
-
-
 }

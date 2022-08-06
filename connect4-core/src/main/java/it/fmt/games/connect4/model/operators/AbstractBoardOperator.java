@@ -25,7 +25,7 @@ public abstract class AbstractBoardOperator {
         Stream.Builder<Coordinates> builder = Stream.builder();
         Coordinates current = coordinates.translate(direction);
 
-        while (board.isCellContentEqualsTo(current, this.enemyPiece)) {
+        while (board.isCellContentEqualsTo(current, this.piece)) {
             builder.add(current);
             current = current.translate(direction);
         }

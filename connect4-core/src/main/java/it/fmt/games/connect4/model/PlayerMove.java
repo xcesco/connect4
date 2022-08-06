@@ -9,16 +9,17 @@ import java.util.List;
 public class PlayerMove {
     private final Piece piece;
     private final Coordinates moveCoords;
-    private final List<Coordinates> capturedEnemyPiecesCoords;
 
     @JsonCreator
     public PlayerMove(@JsonProperty("piece") Piece piece,
-                      @JsonProperty("moveCoords") Coordinates moveCoords,
-                      @JsonProperty("capturedEnemyPiecesCoords") List<Coordinates> capturedEnemyPiecesCoords) {
+                      @JsonProperty("moveCoords") Coordinates moveCoords) {
         if (piece==null || Piece.EMPTY==piece) throw new InvalidInsertOperationException();
         this.piece = piece;
         this.moveCoords = moveCoords;
-        this.capturedEnemyPiecesCoords = capturedEnemyPiecesCoords;
+    }
+
+    public static PlayerMove create(Piece piece, Coordinates coordinates) {
+        return new PlayerMove(piece, coordinates);
     }
 
     public Piece getPiece() {
@@ -27,9 +28,5 @@ public class PlayerMove {
 
     public Coordinates getMoveCoords() {
         return moveCoords;
-    }
-
-    public List<Coordinates> getCapturedEnemyPiecesCoords() {
-        return capturedEnemyPiecesCoords;
     }
 }

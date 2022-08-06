@@ -21,18 +21,18 @@ public class EnemyPiecesHunterTest {
     @Test
     public void failOnInvalidPiece() {
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            Connect4Hunter.find(null, of("a1"), Piece.EMPTY);
+            Connect4Hunter.findPiecesAlongDirections(null, of("a1"), Piece.EMPTY);
         });
 
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            Connect4Hunter.find(null, of("a1"), null);
+            Connect4Hunter.findPiecesAlongDirections(null, of("a1"), null);
         });
     }
 
     @Test
     public void find00() throws Exception {
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            Connect4Hunter.find(null, of("a1"), Piece.EMPTY);
+            Connect4Hunter.findPiecesAlongDirections(null, of("a1"), Piece.EMPTY);
         });
     }
 
@@ -82,7 +82,7 @@ public class EnemyPiecesHunterTest {
     private void checkEnemyPieceFinder(Piece activePiece, Coordinates newMoveCoordinate, String fileName, Coordinates... coordinates) throws Exception {
         List<Coordinates> aspectedResult0 = Arrays.asList(coordinates);
         Board board = BoardReader.read(fileName);
-        List<Coordinates> capturedPiecesCoords = Connect4Hunter.find(board, newMoveCoordinate, activePiece);
+        List<Coordinates> capturedPiecesCoords = Connect4Hunter.findPiecesAlongDirections(board, newMoveCoordinate, activePiece);
         assertThat(capturedPiecesCoords.size(), equalTo(aspectedResult0.size()));
         assertEquals(capturedPiecesCoords, aspectedResult0);
     }

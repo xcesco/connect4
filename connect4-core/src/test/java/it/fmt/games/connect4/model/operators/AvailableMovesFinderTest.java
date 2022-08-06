@@ -1,5 +1,6 @@
 package it.fmt.games.connect4.model.operators;
 
+import it.fmt.games.connect4.exceptions.InvalidBoardStatusException;
 import it.fmt.games.connect4.exceptions.InvalidPieceSelectedException;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
@@ -27,25 +28,24 @@ public class AvailableMovesFinderTest {
 
     @Test
     public void testStartConfigBoard() throws Exception {
-        checkAvailableMovesFinder("available_moves_finder00", Piece.PLAYER_1, of("D3"), of("C4"), of("F5"), of("E6"));
-        checkAvailableMovesFinder("available_moves_finder00", Piece.PLAYER_2, of("E3"), of("F4"), of("C5"), of("D6"));
+        checkAvailableMovesFinder("available_moves_finder00", Piece.PLAYER_1, of("a6"), of("b6"), of("c6"), of("d3"), of("e3"), of("f6"), of("g6"));
     }
 
     @Test
     public void testAvailableMoves1() throws Exception {
-        checkAvailableMovesFinder("available_moves_finder01", Piece.PLAYER_1, of("D3"), of("C4"), of("F5"), of("E6"), of("F6"));
-        checkAvailableMovesFinder("available_moves_finder01", Piece.PLAYER_2, of("A1"), of("E3"), of("F4"), of("C5"), of("D6"));
+        checkAvailableMovesFinder("available_moves_finder01", Piece.PLAYER_1, of("a6"), of("C2"), of("d3"), of("e3"), of("F6"), of("g6"));
     }
 
     @Test
     public void testAvailableMoves2() throws Exception {
-        checkAvailableMovesFinder("available_moves_finder02", Piece.PLAYER_1, of("C6"), of("D6"), of("E6"));
-        checkAvailableMovesFinder("available_moves_finder02", Piece.PLAYER_2, of("D1"), of("B2"), of("F2"), of("B3"),
-                of("F3"), of("A4"), of("G4"), of("B5"), of("F5"), of("B6"), of("F6"));
+        checkAvailableMovesFinder("available_moves_finder02", Piece.PLAYER_1, of("b3"), of("c2"), of("d1"), of("e2"), of("f3"));
     }
 
     private void checkAvailableMovesFinder(String fileName, Piece piece, Coordinates... coordinates) throws Exception {
         Board board = BoardReader.read(fileName);
+        if (!ValidBoardChecker.isValidBoardInState(board)) {
+            throw new InvalidBoardStatusException(board);
+        }
         List<Coordinates> availableMovesForPlayer = AvailableMovesFinder.findMoves(board, piece);
         List<Coordinates> aspectedResult = Arrays.asList(coordinates);
         assertThat(availableMovesForPlayer.size(), equalTo(aspectedResult.size()));

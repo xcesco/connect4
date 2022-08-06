@@ -25,7 +25,7 @@ public class GameLogicImpl implements GameLogic {
         this.userInputReader = userInputReader;
     }
 
-    private void insertNewMoveAndCapturedPieces(Piece piece, List<Coordinates> insertedPieceCoords) {
+    private void insertNewMoveAndCapturedPieces(Piece piece, Coordinates insertedPieceCoords) {
         board = insertMove(board, piece, insertedPieceCoords);
     }
 
@@ -53,7 +53,7 @@ public class GameLogicImpl implements GameLogic {
     @Override
     public void insertSelectedMove(Coordinates moveCoords) {
         Piece currentPiece = currentPlayer.getPiece();
-        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords, Connect4Hunter.find(board, moveCoords, currentPiece));
+        PlayerMove playerMove = new PlayerMove(currentPiece, moveCoords);
         insertNewMoveAndCapturedPieces(playerMove);
 
         gameSnapshotBuilder.setLastMove(playerMove).setBoard(board.copy()).setScore(computeScore(board));
