@@ -67,14 +67,15 @@ public class BoardReader {
      */
     public static Board[] readBoards(String fileName) throws Exception {
         URL url = BoardReader.class.getClassLoader().getResource("boards/" + fileName + ".txt");
+        assert url != null;
         Path resPath = Paths.get(url.toURI());
 
         String fileContent = Files.readString(resPath);
         String[] boardBuffer = removeMultipleBoardSeparators(fileContent)
                 .replaceAll(ONLY_VALID_CHARS_REGEX, "")
                 .split(BOARD_SEPARATOR_REGEX);
-        return Arrays.stream(boardBuffer)
-                .map(BoardReader::parseSingleBoard)
+        return IntStream.range(0, boardBuffer.length)
+                .mapToObj(index -> BoardReader.parseSingleBoard(fileName, index, boardBuffer[index]))
                 .toArray(Board[]::new);
 
     }
@@ -89,7 +90,7 @@ public class BoardReader {
     public static Board read(String fileName) throws Exception {
         Board[] result = readBoards(fileName);
 
-        if (result == null || result.length != 1) {
+        if (result.length != 1) {
             throw new InvalidBoardReaderException(String.format("File %s does not contains a valid snapshot", fileName));
         }
 
@@ -100,17 +101,17 @@ public class BoardReader {
         return content.replaceAll(MULITPLE_BOARD_SEPARATOR_REGEX, BOARD_SEPARATOR_REGEX);
     }
 
-    private static Board parseSingleBoard(String content) {
+    private static Board parseSingleBoard(String boardName, int boardIndex, String content) {
         if (content.length() != Board.BOARD_ROWS * Board.BOARD_COLUMNS) {
-            throw new RuntimeException("Invalid marker in configuration file");
+            throw new RuntimeException(String.format("Invalid marker in configuration file %s, board index %s", boardName, boardIndex));
         }
         Cell[] cells = IntStream.range(0, content.length())
                 .mapToObj(index -> convertSingleCharToCell(content, index))
                 .toArray(Cell[]::new);
         if (cells.length != Board.BOARD_ROWS * Board.BOARD_COLUMNS) {
-            throw new RuntimeException("Invalid marker in configuration file");
+            throw new RuntimeException(String.format("Invalid marker in configuration file %s, board index %s", boardName, boardIndex));
         }
-        return new Board(cells);
+        return new Board(boardName+"@"+boardIndex, cells);
     }
 
     private static Cell convertSingleCharToCell(String fileContent, int index) {
