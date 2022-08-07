@@ -47,9 +47,13 @@ public class InsertMoveOperatorTest {
     public void insertAndWin() throws Exception {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[0], Piece.PLAYER_1);
-        insertMove(boards[0], new PlayerMove(Piece.PLAYER_1, availableMoves.get(0)));
-        assertThat(availableMoves.size(), equalTo(0));
+        PlayerMove move=new PlayerMove(Piece.PLAYER_2, of("d6"));
+        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[0], move.getPiece());
+        Board finalBoard = insertMove(boards[0], move);
+
+        List<Coordinates> alignedPieces = PiecesAroundFinder.findPiecesAlongDirections(boards[0], move.getMoveCoords(), move.getPiece());
+
+        assertThat(alignedPieces.size(), equalTo(3));
     }
 
     @Test
