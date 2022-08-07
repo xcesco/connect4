@@ -18,7 +18,7 @@ public class EndGameDrawer {
                 break;
             case PLAYER1_WIN:
                 println(3,"!!!!!!!!!!!!!!!!!!!!!!!!!");
-                if (player1AsString == "CPU_1")
+                if ("CPU_1".equals(player1AsString))
                     println(3,"!!!!!! "+player1AsString+"  WINS !!!!!!");
                 else
                     println(3,"!!!!! "+player1AsString+" WINS !!!!!");
@@ -27,7 +27,7 @@ public class EndGameDrawer {
                 break;
             case PLAYER2_WIN:
                 println(3,"!!!!!!!!!!!!!!!!!!!!!!!!!");
-                if (player2AsString == "CPU_2")
+                if ("CPU_2".equals(player2AsString))
                     println(3,"!!!!!! "+player2AsString+"  WINS !!!!!!");
                 else
                     println(3,"!!!!! "+player2AsString+" WINS !!!!!");
