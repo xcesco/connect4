@@ -1,6 +1,7 @@
 package it.fmt.games.connect4.model;
 
 import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
+import it.fmt.games.connect4.exceptions.NullPieceInsertedException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -14,12 +15,12 @@ public class PlayerMoveTest {
 
     @Test
     public void testInvalidCreation() {
-        assertThrows(InvalidInsertOperationException.class, () -> {
-            PlayerMove playerMove = new PlayerMove(null, of("a4"));
+        assertThrows(NullPieceInsertedException.class, () -> {
+            new PlayerMove(null, of("a4"));
         });
 
-        assertThrows(InvalidInsertOperationException.class, () -> {
-            PlayerMove playerMove = new PlayerMove(Piece.EMPTY , of("a4"));
+        assertThrows(NullPieceInsertedException.class, () -> {
+            new PlayerMove(Piece.EMPTY , of("a4"));
         });
     }
 

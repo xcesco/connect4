@@ -3,6 +3,7 @@ package it.fmt.games.connect4.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
+import it.fmt.games.connect4.exceptions.NullPieceInsertedException;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class PlayerMove {
     @JsonCreator
     public PlayerMove(@JsonProperty("piece") Piece piece,
                       @JsonProperty("moveCoords") Coordinates moveCoords) {
-        if (piece==null || Piece.EMPTY==piece) throw new InvalidInsertOperationException();
+        if (piece==null || Piece.EMPTY==piece) throw new NullPieceInsertedException();
         this.piece = piece;
         this.moveCoords = moveCoords;
     }

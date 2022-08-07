@@ -6,11 +6,7 @@ import it.fmt.games.connect4.model.Piece;
 
 import java.util.stream.Collectors;
 
-public abstract class ValidBoardChecker extends AbstractBoardOperator {
-
-  private ValidBoardChecker(Board board, Piece piece) {
-    super(board, piece);
-  }
+public abstract class ValidBoardChecker {
 
   public static boolean isValidBoardInState(Board board) {
     return AvailableMovesFinder

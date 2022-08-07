@@ -1,6 +1,8 @@
 package it.fmt.games.connect4.model.operators;
 
 import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
+import it.fmt.games.connect4.exceptions.InvalidPlayerMoveException;
+import it.fmt.games.connect4.exceptions.NullPieceInsertedException;
 import it.fmt.games.connect4.model.*;
 import it.fmt.games.connect4.support.BoardReader;
 import org.junit.jupiter.api.Test;
@@ -31,8 +33,14 @@ public class InsertMoveOperatorTest {
     @Test
     public void insertEmpty() {
         Board board = new Board();
-        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, null));
-        assertThrows(InvalidInsertOperationException.class, () -> insertMove(board, new PlayerMove(Piece.EMPTY, of("a1"))));
+        assertThrows(NullPieceInsertedException.class, () -> insertMove(board, null));
+        assertThrows(NullPieceInsertedException.class, () -> insertMove(board, new PlayerMove(Piece.EMPTY, of("a1"))));
+    }
+
+    @Test
+    public void insertInInvalidPosition() {
+        Board board = new Board();
+        assertThrows(InvalidPlayerMoveException.class, () -> insertMove(board, new PlayerMove(Piece.PLAYER_1, of("a1"))));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package it.fmt.games.connect4.model;
 
 import it.fmt.games.connect4.UserInputReader;
-import it.fmt.games.connect4.model.operators.Connect4Hunter;
 
 import java.util.List;
 

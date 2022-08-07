@@ -10,16 +10,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Connect4Hunter extends AbstractBoardOperator {
+public class PiecesAroundFinder extends AbstractBoardOperator {
     private final Coordinates searchOrigin;
 
-    private Connect4Hunter(Board board, Coordinates coords, Piece piece) {
+    private PiecesAroundFinder(Board board, Coordinates positionToEvaluate, Piece piece) {
         super(board, piece);
-        this.searchOrigin = coords;
+        this.searchOrigin = positionToEvaluate;
     }
 
-    public static List<Coordinates> findPiecesAlongDirections(Board board, Coordinates newMoveCoords, Piece piece) {
-        Connect4Hunter hunter = new Connect4Hunter(board, newMoveCoords, piece);
+    public static List<Coordinates> findPiecesAlongDirections(Board board, Coordinates moveToEvaluate, Piece piece) {
+        PiecesAroundFinder hunter = new PiecesAroundFinder(board, moveToEvaluate, piece);
         return hunter.findPiecesAlongDirections();
     }
 
@@ -27,7 +27,7 @@ public class Connect4Hunter extends AbstractBoardOperator {
         List<Coordinates> horizontalList = buildCoordinateListOfPlayerPieces(Direction.LEFT, Direction.RIGHT);
         List<Coordinates> verticalList = buildCoordinateListOfPlayerPieces(Direction.DOWN, Direction.UP);
         List<Coordinates> dialog1 = buildCoordinateListOfPlayerPieces(Direction.DOWN_LEFT, Direction.UP_RIGHT);
-        List<Coordinates> dialog2 = buildCoordinateListOfPlayerPieces(Direction.UP_LEFT, Direction.DOWN_LEFT);
+        List<Coordinates> dialog2 = buildCoordinateListOfPlayerPieces(Direction.UP_LEFT, Direction.DOWN_RIGHT);
 
         return Stream.of(horizontalList, verticalList, dialog1, dialog2)
                 .max(Comparator.comparing(List::size)).get();
@@ -36,6 +36,7 @@ public class Connect4Hunter extends AbstractBoardOperator {
     private List<Coordinates> buildCoordinateListOfPlayerPieces(Direction left, Direction right) {
         return Stream.of(left, right)
                 .flatMap(this::findPlayerPiecesAlongDirection)
+                .sorted()
                 .collect(Collectors.toList());
     }
 
