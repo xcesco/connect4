@@ -10,7 +10,7 @@ public abstract class ValidBoardChecker {
 
   public static boolean isValidBoardInState(Board board) {
     return AvailableMovesFinder
-            .findMoves(board, Piece.PLAYER_1)
+            .findAvailableMoves(board, Piece.PLAYER_1)
             .stream()
             .collect(Collectors
                     .groupingBy(Coordinates::getColumn, Collectors.counting()))

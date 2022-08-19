@@ -18,12 +18,12 @@ public class PiecesAroundFinder extends AbstractBoardOperator {
         this.searchOrigin = positionToEvaluate;
     }
 
-    public static List<Coordinates> findPiecesAlongDirections(Board board, Coordinates moveToEvaluate, Piece piece) {
+    public static List<Coordinates> findBestDirection(Board board, Coordinates moveToEvaluate, Piece piece) {
         PiecesAroundFinder hunter = new PiecesAroundFinder(board, moveToEvaluate, piece);
-        return hunter.findPiecesAlongDirections();
+        return hunter.findBestDirection();
     }
 
-    private List<Coordinates> findPiecesAlongDirections() {
+    private List<Coordinates> findBestDirection() {
         List<Coordinates> horizontalList = buildCoordinateListOfPlayerPieces(Direction.LEFT, Direction.RIGHT);
         List<Coordinates> verticalList = buildCoordinateListOfPlayerPieces(Direction.DOWN, Direction.UP);
         List<Coordinates> dialog1 = buildCoordinateListOfPlayerPieces(Direction.DOWN_LEFT, Direction.UP_RIGHT);
@@ -33,8 +33,8 @@ public class PiecesAroundFinder extends AbstractBoardOperator {
                 .max(Comparator.comparing(List::size)).get();
     }
 
-    private List<Coordinates> buildCoordinateListOfPlayerPieces(Direction left, Direction right) {
-        return Stream.of(left, right)
+    private List<Coordinates> buildCoordinateListOfPlayerPieces(Direction before, Direction after) {
+        return Stream.of(before, after)
                 .flatMap(this::findPlayerPiecesAlongDirection)
                 .sorted()
                 .collect(Collectors.toList());

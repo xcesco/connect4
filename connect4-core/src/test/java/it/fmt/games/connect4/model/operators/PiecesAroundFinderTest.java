@@ -23,18 +23,18 @@ public class PiecesAroundFinderTest {
     @Test
     public void failOnInvalidPiece() {
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            PiecesAroundFinder.findPiecesAlongDirections(null, of("a1"), Piece.EMPTY);
+            PiecesAroundFinder.findBestDirection(null, of("a1"), Piece.EMPTY);
         });
 
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            PiecesAroundFinder.findPiecesAlongDirections(null, of("a1"), null);
+            PiecesAroundFinder.findBestDirection(null, of("a1"), null);
         });
     }
 
     @Test
     public void find00() throws Exception {
         assertThrows(InvalidPieceSelectedException.class, () -> {
-            PiecesAroundFinder.findPiecesAlongDirections(null, of("a1"), Piece.EMPTY);
+            PiecesAroundFinder.findBestDirection(null, of("a1"), Piece.EMPTY);
         });
     }
 
@@ -129,10 +129,10 @@ public class PiecesAroundFinderTest {
         List<Coordinates> aspectedResult0 = Arrays.asList(playerPiecesAround);
         Board board = BoardReader.readBoards(fileName)[boardIndex];
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(board, activePiece);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board, activePiece);
         assertThat(availableMoves, hasItem(moveToCheck));
 
-        List<Coordinates> capturedPiecesCoords = PiecesAroundFinder.findPiecesAlongDirections(board, moveToCheck, activePiece);
+        List<Coordinates> capturedPiecesCoords = PiecesAroundFinder.findBestDirection(board, moveToCheck, activePiece);
         assertThat(capturedPiecesCoords.size(), equalTo(aspectedResult0.size()));
         assertEquals(aspectedResult0, capturedPiecesCoords);
     }

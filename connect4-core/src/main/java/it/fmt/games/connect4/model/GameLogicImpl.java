@@ -5,7 +5,7 @@ import it.fmt.games.connect4.UserInputReader;
 import java.util.List;
 
 import static it.fmt.games.connect4.model.Coordinates.of;
-import static it.fmt.games.connect4.model.operators.AvailableMovesFinder.findMoves;
+import static it.fmt.games.connect4.model.operators.AvailableMovesFinder.findAvailableMoves;
 import static it.fmt.games.connect4.model.operators.InsertMoveOperator.insertMove;
 import static it.fmt.games.connect4.model.operators.ScoreCalculator.computeScore;
 
@@ -43,7 +43,7 @@ public class GameLogicImpl implements GameLogic {
 
     @Override
     public AvailableMoves findMovesForPlayers() {
-        AvailableMoves availableMoves = new AvailableMoves(findMoves(board, currentPlayer.getPiece()), findMoves(board, otherPlayer.getPiece()));
+        AvailableMoves availableMoves = new AvailableMoves(findAvailableMoves(board, currentPlayer.getPiece()), findAvailableMoves(board, otherPlayer.getPiece()));
 
         gameSnapshotBuilder.setAvailableMoves(availableMoves);
         return availableMoves;

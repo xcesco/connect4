@@ -15,12 +15,12 @@ public class AvailableMovesFinder extends AbstractBoardOperator {
     super(board, piece);
   }
 
-  public static List<Coordinates> findMoves(Board board, Piece piece) {
+  public static List<Coordinates> findAvailableMoves(Board board, Piece piece) {
     AvailableMovesFinder finder = new AvailableMovesFinder(board, piece);
-    return finder.findMoves();
+    return finder.findAvailableMoves();
   }
 
-  private List<Coordinates> findMoves() {
+  private List<Coordinates> findAvailableMoves() {
     return board.getCellStream()
             .parallel()
             .filter(this::isValidCellForInsert)

@@ -7,8 +7,6 @@ import it.fmt.games.connect4.support.BoardReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static it.fmt.games.connect4.model.Coordinates.of;
@@ -83,8 +81,8 @@ public class AvailableMovesTest {
       throw new InvalidBoardStatusException(board);
     }
 
-    List<Coordinates> availableMovesForPlayer1 = AvailableMovesFinder.findMoves(board, Piece.PLAYER_1);
-    List<Coordinates> availableMovesForPlayer2 = AvailableMovesFinder.findMoves(board, Piece.PLAYER_2);
+    List<Coordinates> availableMovesForPlayer1 = AvailableMovesFinder.findAvailableMoves(board, Piece.PLAYER_1);
+    List<Coordinates> availableMovesForPlayer2 = AvailableMovesFinder.findAvailableMoves(board, Piece.PLAYER_2);
 
     return new AvailableMoves(availableMovesForPlayer1, availableMovesForPlayer2);
   }

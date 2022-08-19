@@ -46,7 +46,7 @@ public class AvailableMovesFinderTest {
         if (!ValidBoardChecker.isValidBoardInState(board)) {
             throw new InvalidBoardStatusException(board);
         }
-        List<Coordinates> availableMovesForPlayer = AvailableMovesFinder.findMoves(board, piece);
+        List<Coordinates> availableMovesForPlayer = AvailableMovesFinder.findAvailableMoves(board, piece);
         List<Coordinates> aspectedResult = Arrays.asList(coordinates);
         assertThat(availableMovesForPlayer.size(), equalTo(aspectedResult.size()));
         assertEquals(availableMovesForPlayer, aspectedResult);

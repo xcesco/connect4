@@ -1,6 +1,5 @@
 package it.fmt.games.connect4.model.operators;
 
-import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
 import it.fmt.games.connect4.exceptions.InvalidPlayerMoveException;
 import it.fmt.games.connect4.exceptions.NullPieceInsertedException;
 import it.fmt.games.connect4.model.*;
@@ -48,10 +47,10 @@ public class InsertMoveOperatorTest {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
         PlayerMove move=new PlayerMove(Piece.PLAYER_2, of("d6"));
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[0], move.getPiece());
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[0], move.getPiece());
         Board finalBoard = insertMove(boards[0], move);
 
-        List<Coordinates> alignedPieces = PiecesAroundFinder.findPiecesAlongDirections(boards[0], move.getMoveCoords(), move.getPiece());
+        List<Coordinates> alignedPieces = PiecesAroundFinder.findBestDirection(boards[0], move.getMoveCoords(), move.getPiece());
 
         assertThat(alignedPieces.size(), equalTo(3));
     }
@@ -68,7 +67,7 @@ public class InsertMoveOperatorTest {
 
     private Board insertAndCheckBoardStatus(Board[] boards, int startIndex, PlayerMove playerMove) {
         int finalIndex = startIndex + 1;
-        List<Coordinates> availableMoves = AvailableMovesFinder.findMoves(boards[startIndex], Piece.PLAYER_1);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[startIndex], Piece.PLAYER_1);
         assertThat(availableMoves, hasItem(playerMove.getMoveCoords()));
 
         Board result = insertMove(boards[startIndex], playerMove.getPiece(), playerMove.getMoveCoords());
