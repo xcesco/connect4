@@ -65,7 +65,7 @@ class MoveEvaluatorTest {
                 .move(Piece.PLAYER_1, of("A5"))
                 .build();
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board, Piece.PLAYER_1);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board);
 
         List<MoveScore> scores = availableMoves.stream().map(move -> MoveEvaluator.evaluate(board, PlayerMove.create(Piece.PLAYER_1, move))).collect(Collectors.toList());
         BoardPrinter.print(board, scores);

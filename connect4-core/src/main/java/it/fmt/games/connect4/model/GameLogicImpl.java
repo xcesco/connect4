@@ -43,7 +43,7 @@ public class GameLogicImpl implements GameLogic {
 
     @Override
     public AvailableMoves findMovesForPlayers() {
-        AvailableMoves availableMoves = new AvailableMoves(findAvailableMoves(board, currentPlayer.getPiece()), findAvailableMoves(board, otherPlayer.getPiece()));
+        AvailableMoves availableMoves = new AvailableMoves(findAvailableMoves(board));
 
         gameSnapshotBuilder.setAvailableMoves(availableMoves);
         return availableMoves;

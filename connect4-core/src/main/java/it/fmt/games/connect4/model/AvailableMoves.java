@@ -4,28 +4,22 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AvailableMoves {
     private final List<Coordinates> movesCurrentPlayer;
-    private final List<Coordinates> movesOtherPlayer;
 
     @JsonCreator
-    public AvailableMoves(@JsonProperty("movesCurrentPlayer") List<Coordinates> availableMovesCurrentPlayer,
-                          @JsonProperty("movesOtherPlayer") List<Coordinates> availableMovesOtherPlayer) {
+    public AvailableMoves(@JsonProperty("movesCurrentPlayer") List<Coordinates> availableMovesCurrentPlayer) {
         this.movesCurrentPlayer = availableMovesCurrentPlayer;
-        this.movesOtherPlayer = availableMovesOtherPlayer;
     }
 
     public boolean isAnyAvailableMoves() {
-        return isAvailableMovesForActivePlayer() || !(movesOtherPlayer.isEmpty());
+        return isAvailableMovesForActivePlayer();
     }
 
     public List<Coordinates> getMovesActivePlayer() {
         return movesCurrentPlayer;
-    }
-
-    public List<Coordinates> getMovesOtherPlayer() {
-        return movesOtherPlayer;
     }
 
     public boolean isAvailableMovesForActivePlayer() {
@@ -36,17 +30,12 @@ public class AvailableMoves {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         AvailableMoves that = (AvailableMoves) o;
-
-        if (!movesCurrentPlayer.equals(that.movesCurrentPlayer)) return false;
-        return movesOtherPlayer.equals(that.movesOtherPlayer);
+        return Objects.equals(movesCurrentPlayer, that.movesCurrentPlayer);
     }
 
     @Override
     public int hashCode() {
-        int result = movesCurrentPlayer.hashCode();
-        result = 31 * result + movesOtherPlayer.hashCode();
-        return result;
+        return Objects.hash(movesCurrentPlayer);
     }
 }

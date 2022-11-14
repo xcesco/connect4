@@ -47,7 +47,7 @@ public class InsertMoveOperatorTest {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
         PlayerMove move=new PlayerMove(Piece.PLAYER_2, of("d6"));
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[0], move.getPiece());
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[0]);
         Board finalBoard = insertMove(boards[0], move);
 
         List<Coordinates> alignedPieces = PiecesAroundFinder.findBestDirection(boards[0], move.getMoveCoords(), move.getPiece());
@@ -67,7 +67,7 @@ public class InsertMoveOperatorTest {
 
     private Board insertAndCheckBoardStatus(Board[] boards, int startIndex, PlayerMove playerMove) {
         int finalIndex = startIndex + 1;
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[startIndex], Piece.PLAYER_1);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(boards[startIndex]);
         assertThat(availableMoves, hasItem(playerMove.getMoveCoords()));
 
         Board result = insertMove(boards[startIndex], playerMove.getPiece(), playerMove.getMoveCoords());

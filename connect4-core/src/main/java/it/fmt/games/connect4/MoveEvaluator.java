@@ -17,7 +17,7 @@ public class MoveEvaluator {
     }
 
     public static MoveScore findBestMove(Board board, Piece piece) {
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board, piece);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board);
 
         MoveScore bestScore = availableMoves.stream()
                 .map(move -> MoveEvaluator.evaluate(board, PlayerMove.create(piece, move)))

@@ -1,22 +1,21 @@
 package it.fmt.games.connect4.model.operators;
 
-import it.fmt.games.connect4.model.Board;
-import it.fmt.games.connect4.model.Cell;
-import it.fmt.games.connect4.model.Coordinates;
-import it.fmt.games.connect4.model.Piece;
+import it.fmt.games.connect4.exceptions.InvalidPieceSelectedException;
+import it.fmt.games.connect4.model.*;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class AvailableMovesFinder extends AbstractBoardOperator {
 
-  private AvailableMovesFinder(Board board, Piece piece) {
-    super(board, piece);
+  private AvailableMovesFinder(Board board) {
+    super(board);
   }
 
-  public static List<Coordinates> findAvailableMoves(Board board, Piece piece) {
-    AvailableMovesFinder finder = new AvailableMovesFinder(board, piece);
+  public static List<Coordinates> findAvailableMoves(Board board) {
+    AvailableMovesFinder finder = new AvailableMovesFinder(board);
     return finder.findAvailableMoves();
   }
 

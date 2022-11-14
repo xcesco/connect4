@@ -14,22 +14,22 @@ public class GameStatusFactoryTest {
 
     @Test
     public void createRunningStatus() {
-        checkStatus(Arrays.asList(of("a1")), Collections.emptyList(), 12, 24, false, GameStatus.RUNNING);
+        checkStatus(Arrays.asList(of("a1")),  12, 24, false, GameStatus.RUNNING);
     }
 
     @Test
     public void createPlayer1Wins() {
-        checkStatus(Collections.emptyList(), Collections.emptyList(), 36, 24, true, GameStatus.PLAYER1_WIN);
+        checkStatus(Collections.emptyList(), 36, 24, true, GameStatus.PLAYER1_WIN);
     }
 
     @Test
     public void createPlayer2Wins() {
-        checkStatus(Collections.emptyList(), Collections.emptyList(), 12, 24, true, GameStatus.PLAYER2_WIN);
+        checkStatus(Collections.emptyList(), 12, 24, true, GameStatus.PLAYER2_WIN);
     }
 
     @Test
     public void createDraw() {
-        checkStatus(Collections.emptyList(), Collections.emptyList(), 12, 12, true, GameStatus.DRAW);
+        checkStatus(Collections.emptyList(), 12, 12, true, GameStatus.DRAW);
     }
 
     @Test
@@ -40,8 +40,8 @@ public class GameStatusFactoryTest {
     }
 
 
-    private void checkStatus(List<Coordinates> player1AvailMoves, List<Coordinates> player2AvailMoves, int player1Score, int player2Score, boolean finished, GameStatus aspectedStatus) {
-        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(player1AvailMoves, player2AvailMoves), new GameScore(player1Score, player2Score));
+    private void checkStatus(List<Coordinates> player1AvailMoves, int player1Score, int player2Score, boolean finished, GameStatus aspectedStatus) {
+        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(player1AvailMoves), new GameScore(player1Score, player2Score));
         assertThat(gameStatus.isGameOver(), is(finished));
         assertThat(gameStatus, is(aspectedStatus));
     }

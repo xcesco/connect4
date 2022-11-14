@@ -24,7 +24,7 @@ public abstract class InsertMoveOperator {
     public static Board insertMove(Board board, Piece piece, Coordinates coordinates) {
         if (piece == null || piece == Piece.EMPTY) throw new NullPieceInsertedException();
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board, piece);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board);
         if (!availableMoves.contains(coordinates)) {
             throw new InvalidPlayerMoveException(coordinates);
         }

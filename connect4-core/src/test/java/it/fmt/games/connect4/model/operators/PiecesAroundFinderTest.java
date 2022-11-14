@@ -51,7 +51,6 @@ public class PiecesAroundFinderTest {
 
     @Test
     public void find02() throws Exception {
-
         evaluateMoveForPlayer1(of("A5"), "pieces_around_finder02", of("A6"));
         evaluateMoveForPlayer1(of("b6"), "pieces_around_finder02", of("A6"));
         evaluateMoveForPlayer1(of("c6"), "pieces_around_finder02");
@@ -129,7 +128,7 @@ public class PiecesAroundFinderTest {
         List<Coordinates> aspectedResult0 = Arrays.asList(playerPiecesAround);
         Board board = BoardReader.readBoards(fileName)[boardIndex];
 
-        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board, activePiece);
+        List<Coordinates> availableMoves = AvailableMovesFinder.findAvailableMoves(board);
         assertThat(availableMoves, hasItem(moveToCheck));
 
         List<Coordinates> capturedPiecesCoords = PiecesAroundFinder.findBestDirection(board, moveToCheck, activePiece);

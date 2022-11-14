@@ -1,5 +1,6 @@
 package it.fmt.games.connect4.model.operators;
 
+import it.fmt.games.connect4.exceptions.InvalidPieceSelectedException;
 import it.fmt.games.connect4.model.Board;
 import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Direction;
@@ -11,10 +12,15 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PiecesAroundFinder extends AbstractBoardOperator {
+    protected final Piece piece;
+    protected final Piece enemyPiece;
     private final Coordinates searchOrigin;
 
     private PiecesAroundFinder(Board board, Coordinates positionToEvaluate, Piece piece) {
-        super(board, piece);
+        super(board);
+        if (piece == null || piece == Piece.EMPTY) throw (new InvalidPieceSelectedException());
+        this.piece = piece;
+        this.enemyPiece = piece == Piece.PLAYER_1 ? Piece.PLAYER_2 : Piece.PLAYER_1;
         this.searchOrigin = positionToEvaluate;
     }
 
@@ -42,5 +48,17 @@ public class PiecesAroundFinder extends AbstractBoardOperator {
 
     private Stream<Coordinates> findPlayerPiecesAlongDirection(Direction direction) {
         return findPiecesAlongDirection(searchOrigin, direction);
+    }
+
+    private Stream<Coordinates> findPiecesAlongDirection(Coordinates coordinates, Direction direction) {
+        // done in this way for JDK1.8 compatibility
+        Stream.Builder<Coordinates> builder = Stream.builder();
+        Coordinates current = coordinates.translate(direction);
+
+        while (board.isCellContentEqualsTo(current, this.piece)) {
+            builder.add(current);
+            current = current.translate(direction);
+        }
+        return builder.build();
     }
 }

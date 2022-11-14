@@ -37,7 +37,6 @@ public class GameLogicTest {
 
         AvailableMoves availableMoves = gameLogic.findMovesForPlayers();
         checkAvailableMovesFinder(availableMoves.getMovesActivePlayer(), aspectedMovesForPlayer1);
-        checkAvailableMovesFinder(availableMoves.getMovesOtherPlayer(), aspectedMovesForPlayer2);
     }
 
     @Test

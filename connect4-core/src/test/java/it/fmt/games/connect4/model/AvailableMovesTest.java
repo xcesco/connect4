@@ -30,21 +30,18 @@ public class AvailableMovesTest {
   public void allPlayersCanMove() throws Exception {
     AvailableMoves availableMoves = readAndCheck("available_moves00", true, true);
     assertEquals(7, availableMoves.getMovesActivePlayer().size());
-    assertEquals(7, availableMoves.getMovesActivePlayer().size(), availableMoves.getMovesOtherPlayer().size());
-    assertEquals(availableMoves.getMovesActivePlayer().size(), availableMoves.getMovesOtherPlayer().size());
   }
 
   @Test
   public void noMovesForOtherPlayer() throws Exception {
     AvailableMoves availableMoves = readAndCheck("available_moves01", false, false);
-    assertThat(availableMoves.getMovesOtherPlayer().size(), is(0));
+    assertThat(availableMoves.getMovesActivePlayer().size(), is(0));
   }
 
   @Test
   public void availableMovesForAllPlayers() throws Exception {
     AvailableMoves availableMoves = readAndCheck("available_moves03", true, true);
     assertThat(availableMoves.getMovesActivePlayer().size(), is(7));
-    assertThat(availableMoves.getMovesOtherPlayer().size(), is(7));
   }
 
   @Test
@@ -81,10 +78,9 @@ public class AvailableMovesTest {
       throw new InvalidBoardStatusException(board);
     }
 
-    List<Coordinates> availableMovesForPlayer1 = AvailableMovesFinder.findAvailableMoves(board, Piece.PLAYER_1);
-    List<Coordinates> availableMovesForPlayer2 = AvailableMovesFinder.findAvailableMoves(board, Piece.PLAYER_2);
+    List<Coordinates> availableMovesForPlayer1 = AvailableMovesFinder.findAvailableMoves(board);
 
-    return new AvailableMoves(availableMovesForPlayer1, availableMovesForPlayer2);
+    return new AvailableMoves(availableMovesForPlayer1);
   }
 
   private AvailableMoves readAndCheck(String available_moves01, boolean isAvailableMoves, boolean isAvailableMovesForActivePlayer) throws Exception {
