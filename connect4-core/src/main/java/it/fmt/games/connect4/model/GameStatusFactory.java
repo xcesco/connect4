@@ -5,11 +5,11 @@ public abstract class GameStatusFactory {
 
     }
 
-    public static GameStatus create(AvailableMoves availableMoves, Score score) {
+    public static GameStatus create(AvailableMoves availableMoves, GameScore gameScore) {
         if (availableMoves == null || availableMoves.isAnyAvailableMoves()) {
             return GameStatus.RUNNING;
         } else {
-            int scoreDifference = score.getPlayer1Score() - score.getPlayer2Score();
+            int scoreDifference = gameScore.getPlayer1Score() - gameScore.getPlayer2Score();
             if (scoreDifference == 0) {
                 return GameStatus.DRAW;
             } else if (scoreDifference > 0) {

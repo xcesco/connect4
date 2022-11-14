@@ -5,7 +5,7 @@ import it.fmt.games.connect4.exceptions.InvalidInsertOperationException;
 public class GameSnapshotBuilder {
     private Piece activePiece;
     private AvailableMoves availableMoves;
-    private Score score;
+    private GameScore gameScore;
     private Board board;
     private PlayerMove lastMove;
 
@@ -20,8 +20,8 @@ public class GameSnapshotBuilder {
         return this;
     }
 
-    public GameSnapshotBuilder setScore(Score score) {
-        this.score = score;
+    public GameSnapshotBuilder setScore(GameScore gameScore) {
+        this.gameScore = gameScore;
         return this;
     }
 
@@ -36,7 +36,7 @@ public class GameSnapshotBuilder {
     }
 
     public GameSnapshot build() {
-        return new GameSnapshot(score, lastMove, activePiece, availableMoves, board, GameStatusFactory.create(availableMoves, score));
+        return new GameSnapshot(gameScore, lastMove, activePiece, availableMoves, board, GameStatusFactory.create(availableMoves, gameScore));
     }
 
 }

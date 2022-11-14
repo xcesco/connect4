@@ -3,13 +3,13 @@ package it.fmt.games.connect4.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Score {
+public class GameScore {
     private final int player1Scores;
     private final int player2Scores;
 
     @JsonCreator
-    public Score(@JsonProperty("player1Scores") int player1Scores,
-                 @JsonProperty("player2Scores") int player2Scores) {
+    public GameScore(@JsonProperty("player1Scores") int player1Scores,
+                     @JsonProperty("player2Scores") int player2Scores) {
         this.player1Scores = player1Scores;
         this.player2Scores = player2Scores;
     }
@@ -23,10 +23,10 @@ public class Score {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Score score = (Score) o;
+        GameScore gameScore = (GameScore) o;
 
-        if (player1Scores != score.player1Scores) return false;
-        return player2Scores == score.player2Scores;
+        if (player1Scores != gameScore.player1Scores) return false;
+        return player2Scores == gameScore.player2Scores;
     }
 
     @Override

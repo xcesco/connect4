@@ -34,14 +34,14 @@ public class GameStatusFactoryTest {
 
     @Test
     public void emptyAvailableMoves() {
-        GameStatus gameStatus = GameStatusFactory.create(null, new Score(12, 4));
+        GameStatus gameStatus = GameStatusFactory.create(null, new GameScore(12, 4));
         assertThat(gameStatus.isGameOver(), is(false));
         assertThat(gameStatus, is(GameStatus.RUNNING));
     }
 
 
     private void checkStatus(List<Coordinates> player1AvailMoves, List<Coordinates> player2AvailMoves, int player1Score, int player2Score, boolean finished, GameStatus aspectedStatus) {
-        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(player1AvailMoves, player2AvailMoves), new Score(player1Score, player2Score));
+        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(player1AvailMoves, player2AvailMoves), new GameScore(player1Score, player2Score));
         assertThat(gameStatus.isGameOver(), is(finished));
         assertThat(gameStatus, is(aspectedStatus));
     }

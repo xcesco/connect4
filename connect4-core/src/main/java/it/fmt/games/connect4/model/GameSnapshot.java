@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GameSnapshot {
-    private final Score score;
+    private final GameScore gameScore;
     private final Piece activePiece;
     private final AvailableMoves availableMoves;
     private final Board board;
@@ -12,13 +12,13 @@ public class GameSnapshot {
     private final PlayerMove lastMove;
 
     @JsonCreator
-    public GameSnapshot(@JsonProperty("score") Score score,
+    public GameSnapshot(@JsonProperty("score") GameScore gameScore,
                         @JsonProperty("lastMove") PlayerMove lastMove,
                         @JsonProperty("activePiece") Piece activePiece,
                         @JsonProperty("availableMoves") AvailableMoves availableMoves,
                         @JsonProperty("board") Board board,
                         @JsonProperty("status") GameStatus status) {
-        this.score = score;
+        this.gameScore = gameScore;
         this.activePiece = activePiece;
         this.availableMoves = availableMoves;
         this.board = board;
@@ -30,8 +30,8 @@ public class GameSnapshot {
         return lastMove;
     }
 
-    public Score getScore() {
-        return score;
+    public GameScore getScore() {
+        return gameScore;
     }
 
     public Piece getActivePiece() {

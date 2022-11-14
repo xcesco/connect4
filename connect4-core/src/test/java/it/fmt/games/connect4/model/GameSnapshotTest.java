@@ -30,14 +30,14 @@ public class GameSnapshotTest {
 
         GameSnapshot gameSnapshot = createGameSnapshot(player1Score, player2Score, availMoveP1, availMoveP2);
 
-        Score aspectedScore = new Score(player1Score, player2Score);
+        GameScore aspectedGameScore = new GameScore(player1Score, player2Score);
         Player aspectedCurrentPlayer = new Player1();
         AvailableMoves aspectedMoves = new AvailableMoves(Arrays.asList(of(availMoveP1)), Arrays.asList(of(availMoveP2)));
         Board aspectedBoard = new Board();
         GameStatus aspectedStatus = GameStatus.DRAW;
 
         assertThat(gameSnapshot.getAvailableMoves(), equalTo(aspectedMoves));
-        assertThat(gameSnapshot.getScore(), equalTo(aspectedScore));
+        assertThat(gameSnapshot.getScore(), equalTo(aspectedGameScore));
         assertThat(gameSnapshot.getLastMove(), nullValue());
         assertThat(gameSnapshot.getActivePiece(), equalTo(aspectedCurrentPlayer.getPiece()));
         assertThat(gameSnapshot.getBoard(), equalTo(aspectedBoard));
@@ -45,12 +45,12 @@ public class GameSnapshotTest {
     }
 
     private GameSnapshot createGameSnapshot(int player1Score, int player2Score, String availMoveP1, String availMoveP2) {
-        Score score = new Score(player1Score, player2Score);
+        GameScore gameScore = new GameScore(player1Score, player2Score);
         Player currentPlayer = new Player1();
         AvailableMoves moves = new AvailableMoves(Arrays.asList(of(availMoveP1)), Arrays.asList(of(availMoveP2)));
         Board board = new Board();
         GameStatus status = GameStatus.DRAW;
-        return new GameSnapshot(score, null, currentPlayer.getPiece(), moves, board, status);
+        return new GameSnapshot(gameScore, null, currentPlayer.getPiece(), moves, board, status);
     }
 
 

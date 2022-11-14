@@ -26,7 +26,7 @@ public class AvailableMovesFinder extends AbstractBoardOperator {
             .filter(this::isValidCellForInsert)
             .map(Cell::getCoordinates)
             .sorted(Comparator.comparing(Coordinates::toString))
-            .collect(Collectors.toList());
+            .collect(Collectors.toUnmodifiableList());
   }
 
   private boolean isValidCellForInsert(Cell cell) {

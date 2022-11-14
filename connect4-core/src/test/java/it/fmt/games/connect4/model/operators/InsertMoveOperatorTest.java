@@ -60,9 +60,9 @@ public class InsertMoveOperatorTest {
         Board[] boards = BoardReader.readBoards("insert_piece02");
 
         Board board=insertAndCheckBoardStatus(boards, 0, PlayerMove.create(Piece.PLAYER_2, of("d6")));
-        Score score=ScoreCalculator.computeScore(board);
+        GameScore gameScore =ScoreCalculator.computeScore(board);
 
-        assertThat(score.getPlayer2Score(), is(4));
+        assertThat(gameScore.getPlayer2Score(), is(4));
     }
 
     private Board insertAndCheckBoardStatus(Board[] boards, int startIndex, PlayerMove playerMove) {

@@ -65,7 +65,8 @@ public class BoardReader {
      * @return
      * @throws Exception
      */
-    public static Board[] readBoards(String fileName) throws Exception {
+    public static Board[]
+    readBoards(String fileName) throws Exception {
         URL url = BoardReader.class.getClassLoader().getResource("boards/" + fileName + ".txt");
         assert url != null;
         Path resPath = Paths.get(url.toURI());
