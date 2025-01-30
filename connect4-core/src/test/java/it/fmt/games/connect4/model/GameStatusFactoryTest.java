@@ -41,7 +41,7 @@ public class GameStatusFactoryTest {
 
 
     private void checkStatus(List<Coordinates> player1AvailMoves, List<Coordinates> player2AvailMoves, int player1Score, int player2Score, boolean finished, GameStatus aspectedStatus) {
-        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(player1AvailMoves, player2AvailMoves), new Score(player1Score, player2Score));
+        GameStatus gameStatus = GameStatusFactory.create(new AvailableMoves(Piece.PLAYER_1, player1AvailMoves), new Score(player1Score, player2Score));
         assertThat(gameStatus.isGameOver(), is(finished));
         assertThat(gameStatus, is(aspectedStatus));
     }

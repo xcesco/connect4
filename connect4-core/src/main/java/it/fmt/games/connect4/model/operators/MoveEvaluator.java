@@ -6,7 +6,6 @@ import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MoveEvaluator extends AbstractCellOperator {

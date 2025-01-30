@@ -28,6 +28,7 @@ public abstract class AbstractBoardOperator {
     }
 
     protected boolean isLowerCellFilled(final Coordinates initialCoordinates) {
-        return !initialCoordinates.translate(Direction.DOWN).isValid() || !board.getCellContent(initialCoordinates.translate(Direction.DOWN)).equals(Piece.EMPTY);
+        return !initialCoordinates.translate(Direction.DOWN).isValid() ||
+                !board.getCellContent(initialCoordinates.translate(Direction.DOWN)).equals(Piece.EMPTY);
     }
 }
