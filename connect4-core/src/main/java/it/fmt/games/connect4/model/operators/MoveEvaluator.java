@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class MoveEvaluator extends AbstractBoardOperator {
+public class MoveEvaluator extends AbstractCellOperator {
 
     private MoveEvaluator(Board board, Coordinates coords, Piece piece) {
         super(board, piece, coords);

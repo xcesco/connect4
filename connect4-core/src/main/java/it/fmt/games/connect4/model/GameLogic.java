@@ -11,7 +11,7 @@ public interface GameLogic {
 
     void switchPlayers();
 
-    GameSnapshot getGameSnapshot();
+    GameSnapshot buildGameSnapshot();
 
     Coordinates readActivePlayerMove(List<Coordinates> availableMoves);
 }

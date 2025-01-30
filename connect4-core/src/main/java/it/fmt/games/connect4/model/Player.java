@@ -22,10 +22,10 @@ public abstract class Player {
         return this.decisionHandler == null;
     }
 
-    public Coordinates computeNextMove(List<Coordinates> availableMoves) {
+    public Coordinates computeNextMove(Board board, List<Coordinates> availableMoves) {
         if (isHumanPlayer()) {
             throw new HumanPlayerNeedUserInputException(getPiece());
         }
-        return this.decisionHandler.compute(availableMoves);
+        return this.decisionHandler.compute(board, availableMoves);
     }
 }

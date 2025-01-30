@@ -21,7 +21,6 @@ public class Connect4Test {
             assertThat(gameSnapshot.getActivePiece(), notNullValue());
             assertThat(gameSnapshot.getAvailableMoves(), notNullValue());
             assertThat(gameSnapshot.getAvailableMoves().getMovesActivePlayer(), notNullValue());
-            assertThat(gameSnapshot.getAvailableMoves().getMovesOtherPlayer(), notNullValue());
             assertThat(gameSnapshot.getBoard(), notNullValue());
             assertThat(gameSnapshot.getStatus(), notNullValue());
         }, new TakeFirstUserInputReader(), PlayerFactory.createCpuPlayer1(), PlayerFactory.createCpuPlayer2());

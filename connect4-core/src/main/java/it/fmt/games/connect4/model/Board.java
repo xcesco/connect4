@@ -61,6 +61,10 @@ public class Board {
         return coordinates.isValid() && getCellContent(coordinates) == currentPlayer;
     }
 
+    public boolean isFull() {
+        return Arrays.stream(cells).allMatch(cell -> cell.getPiece() != Piece.EMPTY);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

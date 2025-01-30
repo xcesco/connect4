@@ -11,12 +11,12 @@ import java.util.stream.Collectors;
 
 public class AvailableMovesFinder extends AbstractBoardOperator {
 
-    private AvailableMovesFinder(Board board, Piece piece) {
-        super(board, piece, null);
+    private AvailableMovesFinder(Board board) {
+        super(board, null);
     }
 
-    public static List<Coordinates> findMoves(Board board, Piece piece) {
-        AvailableMovesFinder finder = new AvailableMovesFinder(board, piece);
+    public static List<Coordinates> findMoves(Board board) {
+        AvailableMovesFinder finder = new AvailableMovesFinder(board);
         return finder.findMoves();
     }
 

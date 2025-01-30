@@ -44,21 +44,22 @@ public abstract class PlayersSelector extends TextDrawer {
     }
 
     private static void definePlayers(App app, int choice) {
+        DecisionHandlerType decisionHandlerType=DecisionHandlerType.MINIMAX;
         switch (choice) {
             case 1:
                 setPlayers(app, P1_VS_P2, PlayerFactory.createHumanPlayer1(), PlayerFactory.createHumanPlayer2());
                 setPlayersAsString("PLAYER_1", "PLAYER_2");
                 break;
             case 2:
-                setPlayers(app, P1_VS_CPU, PlayerFactory.createHumanPlayer1(), PlayerFactory.createCpuPlayer2(DecisionHandlerType.RANDOM));
+                setPlayers(app, P1_VS_CPU, PlayerFactory.createHumanPlayer1(), PlayerFactory.createCpuPlayer2(decisionHandlerType));
                 setPlayersAsString("PLAYER_1", "CPU_2");
                 break;
             case 3:
-                setPlayers(app, CPU_VS_P2, PlayerFactory.createCpuPlayer1(DecisionHandlerType.RANDOM), PlayerFactory.createHumanPlayer2());
+                setPlayers(app, CPU_VS_P2, PlayerFactory.createCpuPlayer1(decisionHandlerType), PlayerFactory.createHumanPlayer2());
                 setPlayersAsString("CPU_1", "PLAYER_2");
                 break;
             case 4:
-                setPlayers(app, CPU_VS_CPU, PlayerFactory.createCpuPlayer1(DecisionHandlerType.RANDOM), PlayerFactory.createCpuPlayer2(DecisionHandlerType.RANDOM));
+                setPlayers(app, CPU_VS_CPU, PlayerFactory.createCpuPlayer1(decisionHandlerType), PlayerFactory.createCpuPlayer2(decisionHandlerType));
                 setPlayersAsString("CPU_1", "CPU_2");
                 break;
             default:

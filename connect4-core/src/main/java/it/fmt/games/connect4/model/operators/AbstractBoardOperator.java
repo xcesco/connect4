@@ -12,8 +12,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
 public abstract class AbstractBoardOperator {
-    protected final Piece piece;
-    protected final Piece enemyPiece;
     protected final Board board;
     protected final Coordinates searchOrigin;
 
@@ -24,34 +22,9 @@ public abstract class AbstractBoardOperator {
             List.of(Direction.DOWN_LEFT, Direction.UP_RIGHT)
     );
 
-    public AbstractBoardOperator(Board board, Piece piece, Coordinates searchOrigin) {
+    public AbstractBoardOperator(Board board, Coordinates searchOrigin) {
         this.searchOrigin = searchOrigin;
-        if (piece == null || piece == Piece.EMPTY) throw (new InvalidPieceSelectedException());
-        this.piece = piece;
-        this.enemyPiece = piece == Piece.PLAYER_1 ? Piece.PLAYER_2 : Piece.PLAYER_1;
         this.board = board;
-    }
-
-    protected Pair<Stream<Coordinates>, Integer> findPiecesAlongDirection(final List<Direction> directions) {
-        final AtomicInteger counter= new AtomicInteger(0);
-        // done in this way for JDK1.8 compatibility
-        final Stream.Builder<Coordinates> builder = Stream.builder();
-
-        if (board.isCellContentEqualsTo(searchOrigin, piece)) {
-            counter.getAndIncrement();
-            builder.add(searchOrigin);
-        }
-
-        directions.forEach(direction -> {
-            Coordinates current = searchOrigin.translate(direction);
-            while (board.isCellContentEqualsTo(current, piece)) {
-                counter.getAndIncrement();
-                builder.add(current);
-                current = current.translate(direction);
-            }
-        });
-
-        return Pair.of(builder.build(), counter.intValue());
     }
 
     protected boolean isLowerCellFilled(final Coordinates initialCoordinates) {

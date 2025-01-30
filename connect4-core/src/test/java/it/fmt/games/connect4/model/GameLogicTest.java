@@ -22,7 +22,7 @@ public class GameLogicTest {
 
         Board aspectedBoard = BoardReader.read("gameLogicTest");
 
-        GameSnapshot gameSnapshot = gameLogic.getGameSnapshot();
+        GameSnapshot gameSnapshot = gameLogic.buildGameSnapshot();
         assertThat(gameSnapshot.getBoard(), is(aspectedBoard));
         assertThat(gameSnapshot.getActivePiece(), is(Piece.PLAYER_1));
         assertThat(gameSnapshot.getOtherPlayer(), is(Piece.PLAYER_2));
@@ -49,7 +49,7 @@ public class GameLogicTest {
         gameLogic.insertSelectedMove(player1Move);
 
         Board aspectedBoard = BoardReader.read("gameLogicTest1");
-        GameSnapshot gameSnapshot = gameLogic.getGameSnapshot();
+        GameSnapshot gameSnapshot = gameLogic.buildGameSnapshot();
         assertThat(gameSnapshot.getBoard(), is(aspectedBoard));
     }
 
@@ -58,7 +58,7 @@ public class GameLogicTest {
         GameLogicImpl gameLogic = createAndInitializeGameLogic();
 
         gameLogic.switchPlayers();
-        GameSnapshot gameSnapshot = gameLogic.getGameSnapshot();
+        GameSnapshot gameSnapshot = gameLogic.buildGameSnapshot();
         assertThat(gameSnapshot.getActivePiece(), is(Piece.PLAYER_2));
         assertThat(gameSnapshot.getOtherPlayer(), is(Piece.PLAYER_1));
     }

@@ -22,7 +22,6 @@ public class App implements UserInputReader {
 
     private final Scanner scanner;
     private static int choice;
-
     private Player1 player1;
     private Player2 player2;
 
@@ -56,6 +55,15 @@ public class App implements UserInputReader {
 
         Connect4 connect4 = new Connect4(new ConsoleRenderer(), this, player1, player2);
         connect4.play();
+
+        // Ottieni l'istanza del runtime
+        Runtime runtime = Runtime.getRuntime();
+
+        // Calcola l'uso della memoria
+        long memoryUsed = runtime.totalMemory() - runtime.freeMemory();
+
+        // Stampa l'uso della memoria
+        System.out.println("Memory used: " + memoryUsed + " bytes");
     }
 
 

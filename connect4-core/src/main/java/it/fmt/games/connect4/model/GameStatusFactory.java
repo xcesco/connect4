@@ -11,7 +11,7 @@ public abstract class GameStatusFactory {
         } else if (score.getPlayer2Score() > 0) {
             return GameStatus.PLAYER2_WIN;
         } else {
-            if (availableMoves == null || availableMoves.isAnyAvailableMoves()) {
+            if (availableMoves == null || availableMoves.isAvailableMoves()) {
                 return GameStatus.RUNNING;
             } else {
                 return GameStatus.DRAW;

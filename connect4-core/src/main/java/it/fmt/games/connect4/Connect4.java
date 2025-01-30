@@ -18,10 +18,15 @@ public class Connect4 {
 
     public GameSnapshot play() {
         AvailableMoves availableMoves = gameLogic.initialize();
-        while (availableMoves.isAnyAvailableMoves()) {
-            renderer.render(gameLogic.getGameSnapshot());
+        while (availableMoves.isAvailableMoves()) {
+            GameSnapshot gameSnapshot = gameLogic.buildGameSnapshot();
+            renderer.render(gameSnapshot);
 
-            if (availableMoves.isAvailableMovesForActivePlayer()) {
+            if (gameSnapshot.getStatus().isGameOver()) {
+                break;
+            }
+
+            if (availableMoves.isAvailableMoves()) {
                 Coordinates nextMove = gameLogic.readActivePlayerMove(availableMoves.getMovesActivePlayer());
                 gameLogic.insertSelectedMove(nextMove);
             }
@@ -30,7 +35,7 @@ public class Connect4 {
             availableMoves = gameLogic.findMovesForPlayers();
         }
 
-        renderer.render(gameLogic.getGameSnapshot());
-        return gameLogic.getGameSnapshot();
+        renderer.render(gameLogic.buildGameSnapshot());
+        return gameLogic.buildGameSnapshot();
     }
 }

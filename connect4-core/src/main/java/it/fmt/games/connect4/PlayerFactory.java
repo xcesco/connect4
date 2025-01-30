@@ -1,5 +1,7 @@
 package it.fmt.games.connect4;
 
+import it.fmt.games.connect4.model.Piece;
+
 public abstract class PlayerFactory {
     private PlayerFactory() {
 
@@ -18,7 +20,7 @@ public abstract class PlayerFactory {
     }
 
     public static Player2 createCpuPlayer2(DecisionHandlerType type) {
-        return new Player2(type.getDecisionHandler());
+        return new Player2(type.buildDecisionHandler(Piece.PLAYER_2));
     }
 
     public static Player2 createCpuPlayer2(DecisionHandler handler) {
@@ -30,7 +32,7 @@ public abstract class PlayerFactory {
     }
 
     public static Player1 createCpuPlayer1(DecisionHandlerType type) {
-        return new Player1(type.getDecisionHandler());
+        return new Player1(type.buildDecisionHandler(Piece.PLAYER_1));
     }
 
     public static Player1 createCpuPlayer1(DecisionHandler handler) {

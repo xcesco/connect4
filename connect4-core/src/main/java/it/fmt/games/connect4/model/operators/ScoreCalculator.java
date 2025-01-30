@@ -6,14 +6,14 @@ import it.fmt.games.connect4.model.Coordinates;
 import it.fmt.games.connect4.model.Piece;
 import it.fmt.games.connect4.model.Score;
 
-public class ScoreCalculator extends AbstractBoardOperator {
+public class ScoreCalculator extends AbstractCellOperator {
 
     private ScoreCalculator(Board board, Coordinates coords, Piece piece) {
         super(board, piece, coords);
     }
 
-    public static Score calculateScore(Board board, Coordinates newMoveCoords, Piece piece) {
-        ScoreCalculator calculator = new ScoreCalculator(board, newMoveCoords, piece);
+    public static Score calculateScore(Board board, Coordinates evaluatedNextMove, Piece piece) {
+        ScoreCalculator calculator = new ScoreCalculator(board, evaluatedNextMove, piece);
         return calculator.calculateScore();
     }
 
@@ -30,7 +30,7 @@ public class ScoreCalculator extends AbstractBoardOperator {
         return directions.stream()
                 .map(this::findPiecesAlongDirection)
                 .mapToInt(Pair::getValue2)
-                .max().orElse(0) + 1;
+                .max().orElse(0);
     }
 
 }

@@ -34,9 +34,6 @@ public class GameLogicImpl implements GameLogic {
 
     @Override
     public AvailableMoves initialize() {
-        //insertNewMoveAndCapturedPieces(Piece.PLAYER_1, Arrays.asList(of("e4"), of("d5")));
-        //insertNewMoveAndCapturedPieces(Piece.PLAYER_2, Arrays.asList(of("d4"), of("e5")));
-
         gameSnapshotBuilder.setActivePiece(currentPlayer.getPiece())
                 .setScore(ScoreCalculator.calculateScore(board, Coordinates.of("a1"), Piece.PLAYER_1))
                 .setBoard(board.copy());
@@ -45,7 +42,7 @@ public class GameLogicImpl implements GameLogic {
 
     @Override
     public AvailableMoves findMovesForPlayers() {
-        AvailableMoves availableMoves = new AvailableMoves(findMoves(board, currentPlayer.getPiece()), findMoves(board, otherPlayer.getPiece()));
+        AvailableMoves availableMoves = new AvailableMoves(findMoves(board));
 
         gameSnapshotBuilder.setAvailableMoves(availableMoves);
         return availableMoves;
@@ -70,7 +67,7 @@ public class GameLogicImpl implements GameLogic {
     }
 
     @Override
-    public GameSnapshot getGameSnapshot() {
+    public GameSnapshot buildGameSnapshot() {
         return gameSnapshotBuilder.build();
     }
 
@@ -84,7 +81,7 @@ public class GameLogicImpl implements GameLogic {
 
             return move;
         } else {
-            return currentPlayer.computeNextMove(availableMoves);
+            return currentPlayer.computeNextMove(board, availableMoves);
         }
     }
 
